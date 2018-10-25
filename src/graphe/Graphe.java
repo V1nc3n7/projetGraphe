@@ -26,16 +26,32 @@ public class Graphe {
         this.couleur = new HashMap<>();
         this.listeAdjacence = new HashMap<>();
 
-
+        boolean lectureCool=false;
         try(BufferedReader br = new BufferedReader(new FileReader(new File(path)))){
             String ligne;
             while ((ligne = br.readLine()) != null) {
+                if (!ligne.startsWith("#")) {
 
-                String [] res=ligne.split(" ");
-                String sommet = res[0];
-                String dest=res[1];
 
-                addArete(sommet,dest);
+                    if (ligne.startsWith("@Couleurs")) lectureCool = true;
+                    if (ligne.startsWith("@Aretes")) lectureCool = false;
+                    String[] res = ligne.split(" ");
+                    String sommet = res[0];
+                    if (lectureCool) {
+
+                        String c = res[1];
+                        if (c.equals("ROUGE")) {
+                            addCouleur(sommet, Couleur.ROUGE);
+                        } else {
+                            addCouleur(sommet, Couleur.BLEU);
+                        }
+                    } else {
+                        for (int i = 1; i < res.length; i++)
+                            addArete(sommet, res[i]);
+                    }
+
+
+                }
             }
 
         } catch (IOException e) {
@@ -43,9 +59,6 @@ public class Graphe {
         }
 
     }
-
-
-
 
 
     private int nbSommets() {
@@ -60,9 +73,6 @@ public class Graphe {
         return res;
     }
 
-    public boolean containsKey(String key) {
-        return listeAdjacence.containsKey(key);
-    }
 
     private void addArete(String sommetX,String sommetY){
         if (!listeAdjacence.containsKey(sommetX)) listeAdjacence.put(sommetX,new ArrayList<>());
