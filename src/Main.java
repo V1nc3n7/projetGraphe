@@ -7,7 +7,9 @@ import graphe.Graphe;
 
 public class Main {
     public static void main(String ... args){
-        Graphe graphe = new Graphe("res/grapheA.txt");
-        graphe.print();
+        Graphe grapheA = new Graphe("res/grapheA.txt");
+        grapheA.print();
+        Graphe grapheB = new Graphe("res/grapheB.txt");
+        grapheB.print();
     }
 }
