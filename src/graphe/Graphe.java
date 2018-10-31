@@ -24,11 +24,11 @@ public class Graphe {
     /**
      * Couleur de chaque sommet
      */
-    private CouleurSommet mapColors;
+    private final CouleurSommet mapColors;
     /**
      * Liste d'adjacence du Graphe
      */
-    private ListeAdjacence listeAdjacence;
+    private final ListeAdjacence listeAdjacence;
 
 
     /**
@@ -42,8 +42,8 @@ public class Graphe {
         this.mapColors = new CouleurSommet();
         this.listeAdjacence = new ListeAdjacence();
 
-        boolean lectureCool=false;
-        try(BufferedReader br = new BufferedReader(new FileReader(new File(path)))){
+        boolean lectureCool = false;
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(path)))) {
             String ligne;
             while ((ligne = br.readLine()) != null) {
 
@@ -86,13 +86,12 @@ public class Graphe {
     }
 
 
-
-    public int getNbSommets() {
+    private int getNbSommets() {
         this.nbSommets = listeAdjacence.size();
         return this.nbSommets;
     }
 
-    public int getNbAretes() {
+    private int getNbAretes() {
         this.nbAretes = listeAdjacence.nbAretes();
         return this.nbAretes;
     }
@@ -107,7 +106,6 @@ public class Graphe {
 
 
     }
-
 
 
     /*

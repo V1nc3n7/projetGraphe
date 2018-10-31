@@ -40,15 +40,13 @@ public class ListeAdjacence {
         return listeAdjacence.size();
     }
 
-    public List<String> voisinsDe(String sommet) {
+    private List<String> voisinsDe(String sommet) {
         return listeAdjacence.getOrDefault(sommet, null);
     }
 
     public void print() {
         System.out.println("Liste d'adjacence");
-        listeAdjacence.forEach((sommet, liste) -> {
-            System.out.println("[" + sommet + "] - " + liste.toString());
-        });
+        listeAdjacence.forEach((sommet, liste) -> System.out.println("[" + sommet + "] - " + liste.toString()));
     }
 
     public ListeAdjacence copy() {
@@ -61,9 +59,7 @@ public class ListeAdjacence {
 
     public void deleteSommet(String sommet) {
 
-        this.listeAdjacence.forEach((edge, liste) -> {
-            liste.remove(sommet);
-        });
+        this.listeAdjacence.forEach((edge, liste) -> liste.remove(sommet));
         this.listeAdjacence.remove(sommet);
     }
 

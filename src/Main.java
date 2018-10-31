@@ -7,7 +7,7 @@ import graphe.Sequence2destructrice;
  */
 
 public class Main {
-    public static void main(String ... args){
+    public static void main(String... args) {
 
         Graphe grapheA = new Graphe("res/grapheA.txt");
         Graphe grapheB = new Graphe("res/grapheB.txt");

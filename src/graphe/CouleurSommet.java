@@ -9,7 +9,7 @@ import java.util.TreeMap;
  */
 
 public class CouleurSommet {
-    private Map<String, Couleur> couleurSommet;
+    private final Map<String, Couleur> couleurSommet;
 
     public CouleurSommet() {
         this.couleurSommet = new TreeMap<>();
