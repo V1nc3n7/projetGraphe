@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -99,21 +100,25 @@ public class Graphe {
     }
 
     public int getNbSommets() {
-        return nbSommets;
+        this.nbSommets = listeAdjacence.size();
+        return this.nbSommets;
     }
 
     public int getNbAretes() {
-        return nbAretes;
+        this.nbAretes = listeAdjacence.nbAretes();
+        return this.nbAretes;
     }
+
 
     public void print() {
 
         listeAdjacence.print();
+        System.out.println("Couleurs");
         couleurSommets.forEach((sommet, couleur) -> {
             System.out.println("[" + sommet + "] - " + couleur);
         });
-        System.out.println("nb de sommets " + this.nbSommets);
-        System.out.println("nb arretes " + this.nbAretes);
+        System.out.println("nb de sommets " + this.getNbSommets());
+        System.out.println("nb arretes " + this.getNbAretes());
 
 
     }
@@ -123,11 +128,29 @@ public class Graphe {
     }
 
     public boolean isSeq2destr(Sequence2destructrice sequence) {
+        System.out.println("sequence = " + sequence.getListeDeSommets().toString());
         if (sequence.size() != this.nbSommets) {
             return false;
         } else {
+            ArrayList<String> cheminParcouru = new ArrayList<>();
             Sequence2destructrice temp = sequence.clone();
+
+
+            ListeAdjacence listeTemp = this.listeAdjacence.copy();
+
+            listeTemp.print();
             for (String sommet : temp.getListeDeSommets()) {
+                int sommetsRouges = 0;
+
+                for (String voisin : listeTemp.voisinsDe(sommet)) {
+                    sommetsRouges += ((this.getCouleurDeSommet(voisin) == Couleur.ROUGE) ? 1 : 0);
+                }
+                if (sommetsRouges > 2) return false;
+                else {
+                    listeTemp.deleteSommet(sommet);
+                }
+                System.out.println("c :" + cheminParcouru.toString());
+                cheminParcouru.add(sommet);
 
             }
 

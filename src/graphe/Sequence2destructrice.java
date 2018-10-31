@@ -59,4 +59,5 @@ public class Sequence2destructrice {
     public List<String> getListeDeSommets() {
         return listeDeSommets;
     }
+
 }

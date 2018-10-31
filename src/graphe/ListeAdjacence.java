@@ -44,8 +44,31 @@ public class ListeAdjacence {
     }
 
     public void print() {
+        System.out.println("Liste d'adjacence");
         listeAdjacence.forEach((sommet, liste) -> {
             System.out.println("[" + sommet + "] - " + liste.toString());
         });
+    }
+
+    public ListeAdjacence copy() {
+        ListeAdjacence l = new ListeAdjacence();
+        for (String s : this.listeAdjacence.keySet()) {
+            l.add(s, listeAdjacence.get(s));
+        }
+        return l;
+    }
+
+
+    public void deleteSommet(String sommet) {
+
+        this.listeAdjacence.forEach((edge, liste) -> {
+            liste.remove(sommet);
+        });
+        this.listeAdjacence.remove(sommet);
+    }
+
+    private void add(String sommet, List<String> liste) {
+        listeAdjacence.put(sommet, liste);
+
     }
 }
