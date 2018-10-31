@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -30,7 +28,7 @@ public class Graphe {
     /**
      * Liste d'adjacence du Graphe
      */
-    private Map<String, List<String>>listeAdjacence;
+    private ListeAdjacence listeAdjacence;
 
 
     /**
@@ -42,7 +40,7 @@ public class Graphe {
         this.nbSommets = 0;
         this.nbAretes = 0;
         this.couleurSommets = new TreeMap<>();
-        this.listeAdjacence = new TreeMap<>();
+        this.listeAdjacence = new ListeAdjacence();
 
         boolean lectureCool=false;
         try(BufferedReader br = new BufferedReader(new FileReader(new File(path)))){
@@ -72,7 +70,7 @@ public class Graphe {
                         }
                     } else {
                         for (int i = 1; i < res.length; i++)
-                            addArete(sommet, res[i]);
+                            listeAdjacence.addArete(sommet, res[i]);
                     }
 
 
@@ -84,29 +82,16 @@ public class Graphe {
             e.printStackTrace();
         }
         this.nbSommets = listeAdjacence.size();
-        this.nbAretes = nbAretes();
+        this.nbAretes = listeAdjacence.nbAretes();
     }
 
 
-    private int nbAretes() {
-        int res= 0;
-        for (String cle : listeAdjacence.keySet()) {
-            res+=listeAdjacence.get(cle).size();
-
-        }
-        return res/2;
-    }
 
     public Couleur getCouleurDeSommet(String sommet) {
         return this.couleurSommets.get(sommet);
     }
 
-    private void addArete(String sommetX,String sommetY){
-        if (!listeAdjacence.containsKey(sommetX)) listeAdjacence.put(sommetX,new ArrayList<>());
-        listeAdjacence.get(sommetX).add(sommetY);
-        if (!listeAdjacence.containsKey(sommetY)) listeAdjacence.put(sommetY,new ArrayList<>());
-        listeAdjacence.get(sommetY).add(sommetX);
-    }
+
 
 
     private void addCouleur(String sommet, Couleur c) {
@@ -123,14 +108,32 @@ public class Graphe {
 
     public void print() {
 
-        listeAdjacence.forEach((sommet, liste) -> {
-            System.out.println("[" + sommet + "] - " + liste.toString());
-        });
+        listeAdjacence.print();
         couleurSommets.forEach((sommet, couleur) -> {
             System.out.println("[" + sommet + "] - " + couleur);
         });
         System.out.println("nb de sommets " + this.nbSommets);
         System.out.println("nb arretes " + this.nbAretes);
+
+
+    }
+
+    public ListeAdjacence getListeAdjacence() {
+        return listeAdjacence;
+    }
+
+    public boolean isSeq2destr(Sequence2destructrice sequence) {
+        if (sequence.size() != this.nbSommets) {
+            return false;
+        } else {
+            Sequence2destructrice temp = sequence.clone();
+            for (String sommet : temp.getListeDeSommets()) {
+
+            }
+
+
+            return true;
+        }
 
 
     }
