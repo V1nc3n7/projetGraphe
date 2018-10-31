@@ -8,7 +8,7 @@ v6 ROUGE
 v7 BLEU
 v8 ROUGE
 @Aretes
-v1 v4 v5 v6 v7
+v1 v4 v5 v6 v8
 v2 v3 v4 v6 v7
 v3 v4 v5 v7
 v4 v5 v6

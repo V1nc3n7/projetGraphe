@@ -28,6 +28,7 @@ public class ListeAdjacence {
 
     int nbAretes() {
         int res = 0;
+
         for (String cle : listeAdjacence.keySet()) {
             res += listeAdjacence.get(cle).size();
 
@@ -52,9 +53,8 @@ public class ListeAdjacence {
 
     public ListeAdjacence copy() {
         ListeAdjacence l = new ListeAdjacence();
-        for (String s : this.listeAdjacence.keySet()) {
-            l.add(s, listeAdjacence.get(s));
-        }
+        this.listeAdjacence.forEach(l::add);
+
         return l;
     }
 

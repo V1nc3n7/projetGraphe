@@ -76,7 +76,7 @@ public class Graphe {
 
 
                 }
-                System.out.println(ligne);
+                // System.out.println(ligne);
             }
 
         } catch (IOException e) {
@@ -127,36 +127,65 @@ public class Graphe {
         return listeAdjacence;
     }
 
-    public boolean isSeq2destr(Sequence2destructrice sequence) {
-        System.out.println("sequence = " + sequence.getListeDeSommets().toString());
-        if (sequence.size() != this.nbSommets) {
-            return false;
-        } else {
-            ArrayList<String> cheminParcouru = new ArrayList<>();
-            Sequence2destructrice temp = sequence.clone();
+    /*
+        public boolean isSeq2destr(Sequence2destructrice sequence) {
+            System.out.println("sequence = " + sequence.getListeDeSommets().toString());
+            if (sequence.size() != this.nbSommets) {
+                return false;
+            } else {
+                ArrayList<String> cheminParcouru = new ArrayList<>();
 
+                //ListeAdjacence listeTemp = this.listeAdjacence.copy();
+                    ListeAdjacence listeTemp = this.listeAdjacence.copy();
+                for (String sommet : sequence.getListeDeSommets()) {
+                    System.out.println("("+ sommet +")");
+                    int sommetsRouges = 0;
 
-            ListeAdjacence listeTemp = this.listeAdjacence.copy();
+                    for (String voisin : listeTemp.voisinsDe(sommet)) {
+                        sommetsRouges += ((this.getCouleurDeSommet(voisin) == Couleur.ROUGE) ? 1 : 0);
+                    }
+                    if (sommetsRouges > 2) return false;
+                    else {
+                        listeTemp.deleteSommet(sommet);
+                    }
 
-            listeTemp.print();
-            for (String sommet : temp.getListeDeSommets()) {
-                int sommetsRouges = 0;
-
-                for (String voisin : listeTemp.voisinsDe(sommet)) {
-                    sommetsRouges += ((this.getCouleurDeSommet(voisin) == Couleur.ROUGE) ? 1 : 0);
+                    cheminParcouru.add(sommet);
+                    System.out.println("c :" + cheminParcouru.toString());
+                    listeTemp.print();
+                    System.out.println(listeTemp.size());
                 }
-                if (sommetsRouges > 2) return false;
-                else {
-                    listeTemp.deleteSommet(sommet);
-                }
-                System.out.println("c :" + cheminParcouru.toString());
-                cheminParcouru.add(sommet);
+
+                return listeTemp.size() == 0;
 
             }
 
 
-            return true;
         }
+        */
+    public boolean isSeq2destr(Sequence2destructrice sequence) {
+        System.out.println("sequence = " + sequence.getListeDeSommets().toString());
+
+        ArrayList<String> cheminParcouru = new ArrayList<>();
+
+        for (String sommet : sequence.getListeDeSommets()) {
+            //System.out.println("(" + sommet + ")");
+            int sommetsRouges = 0;
+
+            for (String voisin : listeAdjacence.voisinsDe(sommet)) {
+                if (!(cheminParcouru.contains(voisin))) {
+                    sommetsRouges += ((this.getCouleurDeSommet(voisin) == Couleur.ROUGE) ? 1 : 0);
+                }
+
+            }
+            if (sommetsRouges > 2) return false;
+
+
+            cheminParcouru.add(sommet);
+            // System.out.println("c :" + cheminParcouru.toString());
+
+        }
+
+        return cheminParcouru.size() == this.getNbSommets();
 
 
     }

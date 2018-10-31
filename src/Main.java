@@ -10,15 +10,16 @@ public class Main {
     public static void main(String ... args){
 
         Graphe grapheA = new Graphe("res/grapheA.txt");
-        grapheA.print();
-        Sequence2destructrice s = new Sequence2destructrice("v1 v6 v3 v8 v2 v5 v4 v7");
-
-        System.out.println(grapheA.isSeq2destr(s));
-
-        /*
         Graphe grapheB = new Graphe("res/grapheB.txt");
-        grapheB.print();
-       */
+        Sequence2destructrice s = new Sequence2destructrice("v1 v6 v3 v8 v2 v5 v4 v7");
+        Sequence2destructrice s1 = new Sequence2destructrice("v2 v6 v1 v5 v4 v3 v7 v8");
+
+        System.err.println(grapheA.isSeq2destr(s));
+        System.err.println(grapheB.isSeq2destr(s1));
+
+
+
+
 
     }
 }
