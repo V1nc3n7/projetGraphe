@@ -20,7 +20,7 @@ public class Main {
         System.err.println(grapheA.isSeq2destr(s1));
         System.err.println(grapheB.isSeq2destr(s));
 
-
+        System.out.println(grapheA.generateSequence());
 
 
     }

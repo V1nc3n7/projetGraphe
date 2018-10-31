@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @autor Vincent
@@ -157,4 +158,15 @@ public class Graphe {
         return cheminParcouru.size() == this.getNbSommets();
 
     }
+
+    public Sequence2destructrice generateSequence() {
+        ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
+        Sequence2destructrice seq = new Sequence2destructrice();
+
+
+        Map<String, Integer> m = listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets());
+
+        return null;
+    }
+
 }

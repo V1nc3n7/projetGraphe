@@ -13,7 +13,7 @@ public class Sequence2destructrice {
 
     private List<String> listeDeSommets;
 
-    private Sequence2destructrice() {
+    Sequence2destructrice() {
         this.listeDeSommets = new ArrayList<>();
     }
 
@@ -48,13 +48,6 @@ public class Sequence2destructrice {
         return listeDeSommets.indexOf(o);
     }
 
-    protected Sequence2destructrice clone() {
-        Sequence2destructrice r = new Sequence2destructrice();
-        listeDeSommets.forEach(r::add);
-        return r;
-
-
-    }
 
     public List<String> getListeDeSommets() {
         return listeDeSommets;

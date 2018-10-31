@@ -80,4 +80,14 @@ public class ListeAdjacence {
         }
         return r;
     }
+
+    public Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap, List<String> chemin) {
+        TreeMap<String, Integer> min = new TreeMap<>();
+        this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(couleurMap, chemin, s)));
+        return min;
+    }
+
+    public Map<String, List<String>> getListeAdjacence() {
+        return listeAdjacence;
+    }
 }
