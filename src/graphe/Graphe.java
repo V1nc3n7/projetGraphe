@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * @autor Vincent
@@ -25,7 +23,7 @@ public class Graphe {
     /**
      * Couleur de chaque sommet
      */
-    private Map<String, Couleur> couleurSommets;
+    private CouleurSommet mapColors;
     /**
      * Liste d'adjacence du Graphe
      */
@@ -40,7 +38,7 @@ public class Graphe {
     public Graphe(String path) {
         this.nbSommets = 0;
         this.nbAretes = 0;
-        this.couleurSommets = new TreeMap<>();
+        this.mapColors = new CouleurSommet();
         this.listeAdjacence = new ListeAdjacence();
 
         boolean lectureCool=false;
@@ -65,9 +63,9 @@ public class Graphe {
 
                         String c = res[1];
                         if (c.equals("ROUGE")) {
-                            addCouleur(sommet, Couleur.ROUGE);
+                            mapColors.addSommet(sommet, Couleur.ROUGE);
                         } else {
-                            addCouleur(sommet, Couleur.BLEU);
+                            mapColors.addSommet(sommet, Couleur.BLEU);
                         }
                     } else {
                         for (int i = 1; i < res.length; i++)
@@ -82,22 +80,11 @@ public class Graphe {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.nbSommets = listeAdjacence.size();
-        this.nbAretes = listeAdjacence.nbAretes();
+        this.nbSommets = this.getNbSommets();
+        this.nbAretes = this.getNbAretes();
     }
 
 
-
-    public Couleur getCouleurDeSommet(String sommet) {
-        return this.couleurSommets.get(sommet);
-    }
-
-
-
-
-    private void addCouleur(String sommet, Couleur c) {
-        couleurSommets.put(sommet, c);
-    }
 
     public int getNbSommets() {
         this.nbSommets = listeAdjacence.size();
@@ -113,19 +100,14 @@ public class Graphe {
     public void print() {
 
         listeAdjacence.print();
-        System.out.println("Couleurs");
-        couleurSommets.forEach((sommet, couleur) -> {
-            System.out.println("[" + sommet + "] - " + couleur);
-        });
+        mapColors.print();
         System.out.println("nb de sommets " + this.getNbSommets());
         System.out.println("nb arretes " + this.getNbAretes());
 
 
     }
 
-    public ListeAdjacence getListeAdjacence() {
-        return listeAdjacence;
-    }
+
 
     /*
         public boolean isSeq2destr(Sequence2destructrice sequence) {
@@ -168,25 +150,11 @@ public class Graphe {
         ArrayList<String> cheminParcouru = new ArrayList<>();
 
         for (String sommet : sequence.getListeDeSommets()) {
-            //System.out.println("(" + sommet + ")");
-            int sommetsRouges = 0;
 
-            for (String voisin : listeAdjacence.voisinsDe(sommet)) {
-                if (!(cheminParcouru.contains(voisin))) {
-                    sommetsRouges += ((this.getCouleurDeSommet(voisin) == Couleur.ROUGE) ? 1 : 0);
-                }
-
-            }
-            if (sommetsRouges > 2) return false;
-
-
+            if (this.listeAdjacence.getNbRougeRestantsDansListe(mapColors, cheminParcouru, sommet) > 2) return false;
             cheminParcouru.add(sommet);
-            // System.out.println("c :" + cheminParcouru.toString());
-
         }
-
         return cheminParcouru.size() == this.getNbSommets();
-
 
     }
 }

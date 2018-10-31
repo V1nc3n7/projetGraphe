@@ -71,4 +71,13 @@ public class ListeAdjacence {
         listeAdjacence.put(sommet, liste);
 
     }
+
+    public int getNbRougeRestantsDansListe(CouleurSommet couleurMap, List<String> chemin, String sommet) {
+        int r = 0;
+        for (String s : this.voisinsDe(sommet)) {
+            if (!(chemin.contains(s)))
+                r += ((couleurMap.getCouleurDeSommet(s) == Couleur.ROUGE) ? 1 : 0);
+        }
+        return r;
+    }
 }
