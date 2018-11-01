@@ -159,6 +159,7 @@ public class Graphe {
      * @return null si pas de sequence possible ,à nous de verifier avant
      */
     public Sequence2destructrice generateSequence() {
+        if (!(isSquencePossible())) return null;
         ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
         Sequence2destructrice seq = new Sequence2destructrice();
 
