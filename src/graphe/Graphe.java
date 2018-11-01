@@ -163,27 +163,26 @@ public class Graphe {
 
 
         while (seq.getNbSommets() != this.getNbSommets()) {
-            Map<String, Integer> m = listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets());
+            String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets()));
 
-            String smax = null;
-            int maxou = Integer.MAX_VALUE;
-            for (String s : m.keySet()) {
-                if (maxou > m.get(s)) {
-                    maxou = m.get(s);
-                    smax = s;
-                }
-
-            }
-            // System.err.println(smax+" "+maxou);
             seq.add(smax);
             listeAdjacenceTemp.deleteSommet(smax);
             // System.out.println(seq.getListeDeSommets().toString());
-
-
         }
-
-
         return seq;
     }
 
+    private String getMinSommet(Map<String, Integer> m) {
+
+        String smax = null;
+        int maxou = Integer.MAX_VALUE;
+        for (String s : m.keySet()) {
+            if (maxou > m.get(s)) {
+                maxou = m.get(s);
+                smax = s;
+            }
+        }
+        return smax;
+
+    }
 }
