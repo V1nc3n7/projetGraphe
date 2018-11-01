@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -145,26 +146,25 @@ public class Graphe {
         */
     public boolean isSeq2destr(Sequence2destructrice sequence) {
         System.out.println("sequence = " + sequence.getListeDeSommets().toString());
-
         ArrayList<String> cheminParcouru = new ArrayList<>();
-
         for (String sommet : sequence.getListeDeSommets()) {
-
-            if (this.listeAdjacence.getNbRougeRestantsDansListe(mapColors, cheminParcouru, sommet) > 2) return false;
+            if (this.listeAdjacence.getNbRougeRestantsDansListe(mapColors, cheminParcouru, sommet) > 2)
+                return false;
             cheminParcouru.add(sommet);
         }
         return cheminParcouru.size() == this.getNbSommets();
-
     }
 
+    /**
+     * @return null si pas de sequence possible ,à nous de verifier avant
+     */
     public Sequence2destructrice generateSequence() {
         ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
         Sequence2destructrice seq = new Sequence2destructrice();
 
-
         while (seq.getNbSommets() != this.getNbSommets()) {
-            String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets()));
 
+            String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets()));
             seq.add(smax);
             listeAdjacenceTemp.deleteSommet(smax);
             // System.out.println(seq.getListeDeSommets().toString());
@@ -172,6 +172,12 @@ public class Graphe {
         return seq;
     }
 
+
+    /**
+     *
+     * @param m
+     * @return
+     */
     private String getMinSommet(Map<String, Integer> m) {
 
         String smax = null;
@@ -185,4 +191,31 @@ public class Graphe {
         return smax;
 
     }
+
+    /**
+     *
+     * @return
+     */
+    private boolean isSquencePossible() {
+        if (getNbSommets() == 0)
+            return false;
+        else {
+            ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
+            LinkedList<String> path = new LinkedList<>();
+
+            while (path.size() != this.getNbSommets()) {
+
+
+                String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, path));
+                if (listeAdjacenceTemp.getNbRougeRestantsDansListe(mapColors, path, smax) > 3)
+                    return false;
+                path.add(smax);
+                listeAdjacenceTemp.deleteSommet(smax);
+
+            }
+        }
+        return true;
+    }
+
+
 }
