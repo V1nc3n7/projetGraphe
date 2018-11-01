@@ -12,32 +12,39 @@ import java.util.TreeMap;
 
 public class ListeAdjacence {
     private Map<String, List<String>> listeAdjacence;
+    private int nbSommets;
+    private int nbAretes;
 
 
     public ListeAdjacence() {
         this.listeAdjacence = new TreeMap<>();
+        nbAretes = 0;
+        nbSommets = 0;
     }
 
     void addArete(String sommetX, String sommetY) {
-        if (!listeAdjacence.containsKey(sommetX)) listeAdjacence.put(sommetX, new ArrayList<>());
-        listeAdjacence.get(sommetX).add(sommetY);
-        if (!listeAdjacence.containsKey(sommetY)) listeAdjacence.put(sommetY, new ArrayList<>());
-        listeAdjacence.get(sommetY).add(sommetX);
-    }
-
-
-    int nbAretes() {
-        int res = 0;
-
-        for (String cle : listeAdjacence.keySet()) {
-            res += listeAdjacence.get(cle).size();
-
+        if (!(this.contientArete(sommetX, sommetY))) {
+            if (!listeAdjacence.containsKey(sommetX)) {
+                listeAdjacence.put(sommetX, new ArrayList<>());
+                nbSommets++;
+            }
+            listeAdjacence.get(sommetX).add(sommetY);
+            if (!listeAdjacence.containsKey(sommetY)) {
+                listeAdjacence.put(sommetY, new ArrayList<>());
+                nbSommets++;
+            }
+            listeAdjacence.get(sommetY).add(sommetX);
+            nbAretes++;
         }
-        return res / 2;
+
+
     }
 
-    public int size() {
-        return listeAdjacence.size();
+    private boolean contientArete(String x, String y) {
+        return (listeAdjacence.containsKey(x) &&
+                listeAdjacence.containsKey(y) &&
+                listeAdjacence.get(x).contains(y) &&
+                listeAdjacence.get(y).contains(x));
     }
 
     private List<String> voisinsDe(String sommet) {
@@ -47,12 +54,14 @@ public class ListeAdjacence {
     public void print() {
         System.out.println("Liste d'adjacence");
         listeAdjacence.forEach((sommet, liste) -> System.out.println("[" + sommet + "] - " + liste.toString()));
+        System.out.println("n = " + this.nbSommets);
+        System.out.println("m = " + this.nbAretes);
+
     }
 
     public ListeAdjacence copy() {
         ListeAdjacence l = new ListeAdjacence();
         this.listeAdjacence.forEach(l::add);
-
         return l;
     }
 
@@ -65,6 +74,8 @@ public class ListeAdjacence {
 
     private void add(String sommet, List<String> liste) {
         listeAdjacence.put(sommet, liste);
+        computeNbSommets();
+        computeNbAretes();
 
     }
 
@@ -86,5 +97,31 @@ public class ListeAdjacence {
 
     public Map<String, List<String>> getListeAdjacence() {
         return listeAdjacence;
+    }
+
+    private void computeNbSommets() {
+        this.nbSommets = this.listeAdjacence.size();
+    }
+
+    private void computeNbAretes() {
+        int i = 0;
+        for (String sommet : this.listeAdjacence.keySet())
+            i += this.voisinsDe(sommet).size();
+        this.nbAretes = i / 2;
+
+    }
+
+    /**
+     * @return
+     */
+    public int getNbSommets() {
+        return nbSommets;
+    }
+
+    /**
+     * @return
+     */
+    public int getNbAretes() {
+        return nbAretes;
     }
 }

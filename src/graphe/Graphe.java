@@ -44,8 +44,8 @@ public class Graphe {
         this.listeAdjacence = new ListeAdjacence();
 
         boolean lectureCool = false;
+        String ligne = null;
         try (BufferedReader br = new BufferedReader(new FileReader(new File(path)))) {
-            String ligne;
             while ((ligne = br.readLine()) != null) {
 
                 if (!ligne.startsWith("#")) {
@@ -73,38 +73,23 @@ public class Graphe {
                         for (int i = 1; i < res.length; i++)
                             listeAdjacence.addArete(sommet, res[i]);
                     }
-
-
                 }
-                // System.out.println(ligne);
             }
-
         } catch (IOException e) {
+            System.err.println(ligne);
             e.printStackTrace();
         }
-        this.nbSommets = this.getNbSommets();
-        this.nbAretes = this.getNbAretes();
+        this.nbSommets = listeAdjacence.getNbSommets();
+        this.nbAretes = listeAdjacence.getNbAretes();
     }
 
 
-    private int getNbSommets() {
-        this.nbSommets = listeAdjacence.size();
-        return this.nbSommets;
-    }
-
-    private int getNbAretes() {
-        this.nbAretes = listeAdjacence.nbAretes();
-        return this.nbAretes;
-    }
 
 
     public void print() {
 
         listeAdjacence.print();
         mapColors.print();
-        System.out.println("nb de sommets " + this.getNbSommets());
-        System.out.println("nb arretes " + this.getNbAretes());
-
 
     }
 
@@ -147,6 +132,7 @@ public class Graphe {
     public boolean isSeq2destr(Sequence2destructrice sequence) {
         System.out.println("sequence = " + sequence.getListeDeSommets().toString());
         ArrayList<String> cheminParcouru = new ArrayList<>();
+
         for (String sommet : sequence.getListeDeSommets()) {
             if (this.listeAdjacence.getNbRougeRestantsDansListe(mapColors, cheminParcouru, sommet) > 2)
                 return false;
@@ -155,6 +141,13 @@ public class Graphe {
         return cheminParcouru.size() == this.getNbSommets();
     }
 
+    private int getNbSommets() {
+        return this.listeAdjacence.getNbSommets();
+    }
+
+    private int getNbAretes() {
+        return this.listeAdjacence.getNbAretes();
+    }
     /**
      * @return null si pas de sequence possible ,à nous de verifier avant
      */
@@ -168,7 +161,6 @@ public class Graphe {
             String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets()));
             seq.add(smax);
             listeAdjacenceTemp.deleteSommet(smax);
-            // System.out.println(seq.getListeDeSommets().toString());
         }
         return seq;
     }
@@ -198,13 +190,13 @@ public class Graphe {
      * @return
      */
     private boolean isSquencePossible() {
-        if (getNbSommets() == 0)
+        if (this.nbSommets == 0)
             return false;
         else {
             ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
             LinkedList<String> path = new LinkedList<>();
 
-            while (path.size() != this.getNbSommets()) {
+            while (path.size() != this.listeAdjacence.getNbSommets()) {
 
 
                 String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, path));
