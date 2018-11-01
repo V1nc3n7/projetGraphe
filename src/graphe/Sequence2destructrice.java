@@ -48,7 +48,9 @@ public class Sequence2destructrice {
         return listeDeSommets.indexOf(o);
     }
 
-
+    public int getNbSommets() {
+        return listeDeSommets.size();
+    }
     public List<String> getListeDeSommets() {
         return listeDeSommets;
     }

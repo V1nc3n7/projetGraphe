@@ -162,9 +162,28 @@ public class Graphe {
         Sequence2destructrice seq = new Sequence2destructrice();
 
 
-        Map<String, Integer> m = listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets());
+        while (seq.getNbSommets() != this.getNbSommets()) {
+            Map<String, Integer> m = listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, seq.getListeDeSommets());
 
-        return null;
+            String smax = null;
+            int maxou = Integer.MAX_VALUE;
+            for (String s : m.keySet()) {
+                if (maxou > m.get(s)) {
+                    maxou = m.get(s);
+                    smax = s;
+                }
+
+            }
+            // System.err.println(smax+" "+maxou);
+            seq.add(smax);
+            listeAdjacenceTemp.deleteSommet(smax);
+            // System.out.println(seq.getListeDeSommets().toString());
+
+
+        }
+
+
+        return seq;
     }
 
 }
