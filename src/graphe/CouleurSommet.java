@@ -28,15 +28,25 @@ public class CouleurSommet {
     public void addSommet(String sommet, Couleur couleur) {
         this.couleurSommet.put(sommet, couleur);
     }
-
     /**
      *
      * @param sommet
      * @return
      */
-    public Couleur getCouleurDeSommet(String sommet) {
-        return this.couleurSommet.get(sommet);
+    public boolean sommetIsRouge(String sommet) {
+        return this.couleurSommet.get(sommet).equals(Couleur.ROUGE);
     }
+
+    public int nbSommetsRouges() {
+        int s = 0;
+        for (String sommet : couleurSommet.keySet()) if (sommetIsRouge(sommet)) s++;
+        return s;
+    }
+
+    public int nbSommetsBleus() {
+        return (this.couleurSommet.size() - this.nbSommetsRouges());
+    }
+
 
     /**
      *

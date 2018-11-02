@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @autor Vincent
@@ -38,8 +39,7 @@ public class Graphe {
      * @param path chemin du fichier decrivant le graphe
      */
     public Graphe(String path) {
-        this.nbSommets = 0;
-        this.nbAretes = 0;
+
         this.mapColors = new CouleurSommet();
         this.listeAdjacence = new ListeAdjacence();
 
@@ -83,6 +83,34 @@ public class Graphe {
         this.nbAretes = listeAdjacence.getNbAretes();
     }
 
+    /**
+     * @param nSommets
+     * @param probablite
+     */
+    public Graphe(int nSommets, double probablite) {
+        this.mapColors = new CouleurSommet();
+        this.listeAdjacence = new ListeAdjacence();
+
+        for (int i = 1; i <= nSommets; i++) {
+            String sommet = "v" + i;
+            listeAdjacence.addSommet(sommet);
+        }
+        Random r = new Random();
+        listeAdjacence.getListeAdjacence().forEach((verticies, arcs) -> {
+            for (String edge : listeAdjacence.getListeAdjacence().keySet()) {
+                if (!(edge.equals(verticies))) {
+                    if (r.nextDouble() <= probablite) {
+                        listeAdjacence.addArete(verticies, edge);
+                    }
+                }
+            }
+        });
+
+
+        this.nbSommets = listeAdjacence.getNbSommets();
+        this.nbAretes = listeAdjacence.getNbAretes();
+
+    }
 
     /**
      *

@@ -55,6 +55,14 @@ public class ListeAdjacence {
 
     }
 
+
+    public void addSommet(String sommet) {
+        if (!(this.listeAdjacence.containsKey(sommet))) {
+            listeAdjacence.put(sommet, new ArrayList<>());
+            nbSommets++;
+        }
+    }
+
     /**
      *
      * @param x
@@ -128,7 +136,7 @@ public class ListeAdjacence {
         int r = 0;
         for (String s : this.voisinsDe(sommet)) {
             if (!(chemin.contains(s)))
-                r += ((couleurMap.getCouleurDeSommet(s) == Couleur.ROUGE) ? 1 : 0);
+                r += ((couleurMap.sommetIsRouge(s)) ? 1 : 0);
         }
         return r;
     }

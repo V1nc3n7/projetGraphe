@@ -8,6 +8,7 @@ import graphe.Sequence2destructrice;
 
 public class Main {
     public static void main(String... args) {
+
         System.out.println("Création des graphes");
 
         Graphe grapheA = new Graphe("res/grapheA.txt");
@@ -37,7 +38,6 @@ public class Main {
         System.out.println(grapheB.isSeq2destr(s));
         System.out.println();
 
-
         System.out.println("Génération d'une sequence");
         Sequence2destructrice seqt = grapheA.generateSequence();
         Sequence2destructrice seqtb = grapheB.generateSequence();
@@ -45,5 +45,12 @@ public class Main {
         System.out.println("Test des sequence");
         System.out.println(grapheA.isSeq2destr(seqt));
         System.out.println(grapheB.isSeq2destr(seqtb));
+        System.out.println(grapheB.isSeq2destr(seqtb));
+        System.out.println();
+
+        System.out.println("Génération aléatoire");
+        Graphe testG = new Graphe(8, 0.8);
+        testG.print();
+        System.out.println();
     }
 }
