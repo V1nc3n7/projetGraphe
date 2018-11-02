@@ -84,8 +84,9 @@ public class Graphe {
     }
 
 
-
-
+    /**
+     *
+     */
     public void print() {
 
         listeAdjacence.print();
@@ -129,8 +130,13 @@ public class Graphe {
 
         }
         */
+
+    /**
+     * @param sequence
+     * @return
+     */
     public boolean isSeq2destr(Sequence2destructrice sequence) {
-        System.out.println("sequence = " + sequence.getListeDeSommets().toString());
+        System.out.println("sequence = " + sequence.toString());
         ArrayList<String> cheminParcouru = new ArrayList<>();
 
         for (String sommet : sequence.getListeDeSommets()) {
@@ -141,10 +147,18 @@ public class Graphe {
         return cheminParcouru.size() == this.getNbSommets();
     }
 
+    /**
+     *
+     * @return
+     */
     private int getNbSommets() {
         return this.listeAdjacence.getNbSommets();
     }
 
+    /**
+     *
+     * @return
+     */
     private int getNbAretes() {
         return this.listeAdjacence.getNbAretes();
     }

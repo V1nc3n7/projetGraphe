@@ -11,17 +11,32 @@ import java.util.TreeMap;
  */
 
 public class ListeAdjacence {
+    /**
+     *
+     */
     private Map<String, List<String>> listeAdjacence;
+    /**
+     *
+     */
     private int nbSommets;
+    /**
+     *
+     */
     private int nbAretes;
 
-
+    /**
+     *
+     */
     public ListeAdjacence() {
         this.listeAdjacence = new TreeMap<>();
         nbAretes = 0;
         nbSommets = 0;
     }
 
+    /**
+     * @param sommetX
+     * @param sommetY
+     */
     void addArete(String sommetX, String sommetY) {
         if (!(this.contientArete(sommetX, sommetY))) {
             if (!listeAdjacence.containsKey(sommetX)) {
@@ -40,6 +55,12 @@ public class ListeAdjacence {
 
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean contientArete(String x, String y) {
         return (listeAdjacence.containsKey(x) &&
                 listeAdjacence.containsKey(y) &&
@@ -47,6 +68,11 @@ public class ListeAdjacence {
                 listeAdjacence.get(y).contains(x));
     }
 
+    /**
+     *
+     * @param sommet
+     * @return
+     */
     private List<String> voisinsDe(String sommet) {
         return listeAdjacence.getOrDefault(sommet, null);
     }
@@ -59,19 +85,31 @@ public class ListeAdjacence {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public ListeAdjacence copy() {
         ListeAdjacence l = new ListeAdjacence();
         this.listeAdjacence.forEach(l::add);
         return l;
     }
 
-
+    /**
+     *
+     * @param sommet
+     */
     public void deleteSommet(String sommet) {
 
         this.listeAdjacence.forEach((edge, liste) -> liste.remove(sommet));
         this.listeAdjacence.remove(sommet);
     }
 
+    /**
+     *
+     * @param sommet
+     * @param liste
+     */
     private void add(String sommet, List<String> liste) {
         listeAdjacence.put(sommet, liste);
         computeNbSommets();
@@ -79,6 +117,13 @@ public class ListeAdjacence {
 
     }
 
+    /**
+     *
+     * @param couleurMap
+     * @param chemin
+     * @param sommet
+     * @return
+     */
     public int getNbRougeRestantsDansListe(CouleurSommet couleurMap, List<String> chemin, String sommet) {
         int r = 0;
         for (String s : this.voisinsDe(sommet)) {
@@ -88,6 +133,12 @@ public class ListeAdjacence {
         return r;
     }
 
+    /**
+     *
+     * @param couleurMap
+     * @param chemin
+     * @return
+     */
     public Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap, List<String> chemin) {
         TreeMap<String, Integer> min = new TreeMap<>();
 
@@ -95,14 +146,24 @@ public class ListeAdjacence {
         return min;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, List<String>> getListeAdjacence() {
         return listeAdjacence;
     }
 
+    /**
+     *
+     */
     private void computeNbSommets() {
         this.nbSommets = this.listeAdjacence.size();
     }
 
+    /**
+     *
+     */
     private void computeNbAretes() {
         int i = 0;
         for (String sommet : this.listeAdjacence.keySet())
