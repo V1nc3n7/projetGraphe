@@ -52,5 +52,7 @@ public class Main {
         Graphe testG = new Graphe(8, 0.8);
         testG.print();
         System.out.println();
+        testG.colorateGraphe(0.5);
+        testG.print();
     }
 }

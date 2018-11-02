@@ -33,9 +33,9 @@ public class ListeAdjacence {
         nbSommets = 0;
     }
 
-    /**
-     * @param sommetX
-     * @param sommetY
+    /**Crée une arête xy (et yx)
+     * @param sommetX le nom du sommet x
+     * @param sommetY le nom du sommet y
      */
     void addArete(String sommetX, String sommetY) {
         if (!(this.contientArete(sommetX, sommetY))) {
@@ -55,7 +55,9 @@ public class ListeAdjacence {
 
     }
 
-
+    /**
+     * @param sommet le nom du sommet à ajouter
+     */
     public void addSommet(String sommet) {
         if (!(this.listeAdjacence.containsKey(sommet))) {
             listeAdjacence.put(sommet, new ArrayList<>());
@@ -65,8 +67,8 @@ public class ListeAdjacence {
 
     /**
      *
-     * @param x
-     * @param y
+     * @param x le nom du sommet x
+     * @param y le nom du sommet y
      * @return
      */
     private boolean contientArete(String x, String y) {
@@ -78,7 +80,7 @@ public class ListeAdjacence {
 
     /**
      *
-     * @param sommet
+     * @param sommet le nom du sommet à rechercher
      * @return
      */
     private List<String> voisinsDe(String sommet) {
@@ -94,6 +96,15 @@ public class ListeAdjacence {
     }
 
     /**
+     * Calcul de degrés
+     * @param sommet le nom du sommet
+     * @return Le degré du sommet
+     */
+    public int degre(String sommet) {
+        return this.voisinsDe(sommet).size();
+    }
+
+    /**
      *
      * @return
      */
@@ -105,7 +116,7 @@ public class ListeAdjacence {
 
     /**
      *
-     * @param sommet
+     * @param sommet le nom du sommet à supprimer
      */
     public void deleteSommet(String sommet) {
 

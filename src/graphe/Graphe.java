@@ -26,7 +26,7 @@ public class Graphe {
     /**
      * Couleur de chaque sommet
      */
-    private final CouleurSommet mapColors;
+    private CouleurSommet mapColors;
     /**
      * Liste d'adjacence du Graphe
      */
@@ -83,9 +83,9 @@ public class Graphe {
         this.nbAretes = listeAdjacence.getNbAretes();
     }
 
-    /**
-     * @param nSommets
-     * @param probablite
+    /**Générateur de graphe aléatoire
+     * @param nSommets nombre de sommmets du graphe
+     * @param probablite proba qu'un sommet complete une arete
      */
     public Graphe(int nSommets, double probablite) {
         this.mapColors = new CouleurSommet();
@@ -97,19 +97,21 @@ public class Graphe {
         }
         Random r = new Random();
         listeAdjacence.getListeAdjacence().forEach((verticies, arcs) -> {
-            for (String edge : listeAdjacence.getListeAdjacence().keySet()) {
-                if (!(edge.equals(verticies))) {
-                    if (r.nextDouble() <= probablite) {
-                        listeAdjacence.addArete(verticies, edge);
-                    }
+            for (String edge : listeAdjacence.getListeAdjacence().keySet())
+                if (!(edge.equals(verticies)))
+                    if (r.nextDouble() <= probablite) listeAdjacence.addArete(verticies, edge);
                 }
-            }
-        });
+        );
 
-
+        listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, Couleur.BLEU));
         this.nbSommets = listeAdjacence.getNbSommets();
         this.nbAretes = listeAdjacence.getNbAretes();
 
+    }
+
+    public void colorateGraphe(double rougirSommets) {
+        Random r = new Random();
+        listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, (rougirSommets <= r.nextDouble()) ? Couleur.ROUGE : Couleur.BLEU));
     }
 
     /**
@@ -121,6 +123,7 @@ public class Graphe {
         mapColors.print();
 
     }
+
 
 
     /*
