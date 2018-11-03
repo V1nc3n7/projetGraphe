@@ -110,9 +110,13 @@ public class Graphe {
     }
 
     public void colorateGraphe(double rougirSommets) {
+        this.mapColors = new CouleurSommet();
         Random r = new Random();
-        listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, (rougirSommets <= r.nextDouble()) ? Couleur.ROUGE : Couleur.BLEU));
+        listeAdjacence.getListeAdjacence().forEach((s, l) -> {
+            mapColors.addSommet(s, (r.nextDouble() <= rougirSommets) ? Couleur.ROUGE : Couleur.BLEU);
+        });
     }
+
 
     /**
      *
@@ -234,9 +238,20 @@ public class Graphe {
      *
      * @return
      */
-    private boolean isSquencePossible() {
+    public boolean isSquencePossible() {
         if (this.nbSommets == 0)
             return false;
+        /*
+        if (this.nbAretes == 0)
+            return false;
+
+
+        if (this.mapColors.nbSommetsRouges() == 0)
+            return true;
+
+        if (this.nbSommets == this.mapColors.nbSommetsRouges())
+            return false;
+            */
         else {
             ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
             LinkedList<String> path = new LinkedList<>();
