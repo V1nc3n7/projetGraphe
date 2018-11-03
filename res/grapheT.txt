@@ -1,0 +1,11 @@
+@Couleurs
+v1 BLEU
+v2 ROUGE
+v3 BLEU
+v4 ROUGE
+v5 BLEU
+v6 ROUGE
+v7 ROUGE
+v8 ROUGE
+@Aretes
+v1 v2 v3 v4 v5 v6 v7
