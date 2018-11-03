@@ -56,6 +56,7 @@ public class ListeAdjacence {
     }
 
     /**
+     *
      * @param sommet le nom du sommet à ajouter
      */
     public void addSommet(String sommet) {
@@ -83,13 +84,15 @@ public class ListeAdjacence {
      * @param sommet le nom du sommet à rechercher
      * @return
      */
-    private List<String> voisinsDe(String sommet) {
-        return listeAdjacence.getOrDefault(sommet, null);
+    List<String> voisinsDe(String sommet) {
+
+
+        return listeAdjacence.get(sommet);
     }
 
     public void print() {
         System.out.println("Liste d'adjacence");
-        listeAdjacence.forEach((sommet, liste) -> System.out.println("[" + sommet + "] - " + liste.toString()));
+        listeAdjacence.forEach((sommet, liste) -> System.out.println("[" + sommet + "] - " + liste.toString() + " (" + liste.size() + ")"));
         System.out.println("n = " + this.nbSommets);
         System.out.println("m = " + this.nbAretes);
 
@@ -103,7 +106,6 @@ public class ListeAdjacence {
     public int degre(String sommet) {
         return this.voisinsDe(sommet).size();
     }
-
     /**
      *
      * @return
@@ -122,6 +124,7 @@ public class ListeAdjacence {
 
         this.listeAdjacence.forEach((edge, liste) -> liste.remove(sommet));
         this.listeAdjacence.remove(sommet);
+        nbSommets--;
     }
 
     /**
@@ -145,13 +148,22 @@ public class ListeAdjacence {
      */
     public int getNbRougeRestantsDansListe(CouleurSommet couleurMap, List<String> chemin, String sommet) {
         int r = 0;
-        for (String s : this.voisinsDe(sommet)) {
-            if (!(chemin.contains(s)))
-                r += ((couleurMap.sommetIsRouge(s)) ? 1 : 0);
+        //System.err.println(sommet==null);
+        for (String voisin : this.voisinsDe(sommet)) {
+            if (!(chemin.contains(voisin)))
+                r += ((couleurMap.sommetIsRouge(voisin)) ? 1 : 0);
         }
         return r;
     }
 
+
+    public int getNbRougeRestantsDansListe(CouleurSommet couleurMap, String sommet) {
+        int r = 0;
+        for (String s : this.voisinsDe(sommet)) {
+            r += ((couleurMap.sommetIsRouge(s)) ? 1 : 0);
+        }
+        return r;
+    }
     /**
      *
      * @param couleurMap
@@ -165,6 +177,13 @@ public class ListeAdjacence {
         return min;
     }
 
+
+    public Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap) {
+        TreeMap<String, Integer> min = new TreeMap<>();
+
+        this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(couleurMap, s)));
+        return min;
+    }
     /**
      *
      * @return
@@ -195,6 +214,7 @@ public class ListeAdjacence {
      * @return
      */
     public int getNbSommets() {
+
         return nbSommets;
     }
 
@@ -202,6 +222,7 @@ public class ListeAdjacence {
      * @return
      */
     public int getNbAretes() {
+        computeNbAretes();
         return nbAretes;
     }
 }

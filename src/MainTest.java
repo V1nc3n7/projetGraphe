@@ -1,13 +1,10 @@
 import graphe.Graphe;
-import graphe.Sequence2destructrice;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DecimalFormat;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @autor Vincent
@@ -15,51 +12,88 @@ import java.util.Date;
  */
 
 public class MainTest {
+    private static double compareLogs(File f1, File f2) {
+        try (BufferedReader br1 = new BufferedReader(new FileReader(f1));
+             BufferedReader br2 = new BufferedReader(new FileReader(f2))
+        ) {
+            ArrayList<Double> d = new ArrayList<>();
+            String l1, l2;
+            l1 = null;
+            l2 = null;
+            while ((l1 = br1.readLine()) != null && (l2 = br2.readLine()) != null) {
+
+                String[] res1 = l1.split("=");
+                String[] res2 = l2.split("=");
+
+
+                String[] resb1 = res1[1].split("%");
+                String[] resb2 = res2[1].split("%");
+
+                d.add(Math.abs(Double.parseDouble(resb1[0].replace(',', '.')) - Double.parseDouble(resb2[0].replace(',', '.'))));
+
+                //System.out.println(Arrays.toString(res2));
+
+            }
+
+            Double re = 0.0;
+            Double i = 0.0;
+            for (Double truc : d) {
+                re += truc;
+                i++;
+            }
+            return (re / i);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return 0;
+    }
 
     private static void genereTests(File f) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
 
 
-            ArrayList<Integer> nsommets = new ArrayList<>();
+            ArrayList<Integer> nlist = new ArrayList<>();
 
 
-            nsommets.add(10);
-            nsommets.add(25);
-
-            nsommets.add(50);
-
-            nsommets.add(75);
-            nsommets.add(100);
-            nsommets.add(150);
-            nsommets.add(200);
-
-
-            ArrayList<Double> prob = new ArrayList<>();
-            prob.add(0.0);
-            prob.add(0.1);
-            prob.add(0.2);
-            prob.add(0.3);
-            prob.add(0.4);
-            prob.add(0.5);
-            prob.add(0.6);
-            prob.add(0.7);
-            prob.add(0.8);
-            prob.add(0.9);
-            prob.add(1.0);
+            nlist.add(10);
+            nlist.add(25);
+            nlist.add(50);
+            nlist.add(75);
+            nlist.add(100);
+          /*  nlist.add(150);
+            nlist.add(200);
+            */
 
 
-            ArrayList<Double> color = new ArrayList<>();
-            color.add(0.0);
-            color.add(0.1);
-            color.add(0.2);
-            color.add(0.3);
-            color.add(0.4);
-            color.add(0.5);
-            color.add(0.6);
-            color.add(0.7);
-            color.add(0.8);
-            color.add(0.9);
-            color.add(1.0);
+            ArrayList<Double> plist = new ArrayList<>();
+            plist.add(0.0);
+            plist.add(0.1);
+            plist.add(0.2);
+            plist.add(0.3);
+            plist.add(0.4);
+            plist.add(0.5);
+            plist.add(0.6);
+            plist.add(0.7);
+            plist.add(0.8);
+            plist.add(0.9);
+            plist.add(1.0);
+
+
+            ArrayList<Double> rlist = new ArrayList<>();
+            rlist.add(0.0);
+            rlist.add(0.1);
+            rlist.add(0.2);
+            rlist.add(0.3);
+            rlist.add(0.4);
+            rlist.add(0.5);
+            rlist.add(0.6);
+            rlist.add(0.7);
+            rlist.add(0.8);
+            rlist.add(0.9);
+            rlist.add(1.0);
 
 
             bw.write("Debut : " + new Date(System.currentTimeMillis()).toString());
@@ -71,9 +105,9 @@ public class MainTest {
             bw.newLine();
 
 
-            for (int n : nsommets) {
-                for (Double r : color) {
-                    for (Double p : prob) {
+            for (int n : nlist) {
+                for (Double r : rlist) {
+                    for (Double p : plist) {
                         String e = "(" + n + "," + p + "," + r + ")=" + repeatRandom(n, p, r, 1000);
                         System.out.println(e);
                         bw.write(e);
@@ -92,9 +126,75 @@ public class MainTest {
 
     }
 
-    public static String repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
+    private static void genereTests() {
+
+
+        ArrayList<Integer> nlist = new ArrayList<>();
+
+
+        nlist.add(10);
+        nlist.add(25);
+        nlist.add(50);
+        nlist.add(75);
+           /* nlist.add(100);
+            nlist.add(150);
+            nlist.add(200);
+            */
+
+
+        ArrayList<Double> plist = new ArrayList<>();
+        plist.add(0.0);
+        plist.add(0.1);
+        plist.add(0.2);
+        plist.add(0.3);
+        plist.add(0.4);
+        plist.add(0.5);
+        plist.add(0.6);
+        plist.add(0.7);
+        plist.add(0.8);
+        plist.add(0.9);
+        plist.add(1.0);
+
+
+        ArrayList<Double> rlist = new ArrayList<>();
+        rlist.add(0.0);
+        rlist.add(0.1);
+        rlist.add(0.2);
+        rlist.add(0.3);
+        rlist.add(0.4);
+        rlist.add(0.5);
+        rlist.add(0.6);
+        rlist.add(0.7);
+        rlist.add(0.8);
+        rlist.add(0.9);
+        rlist.add(1.0);
+
+
+        System.out.println("Debut : " + new Date(System.currentTimeMillis()).toString());
+
+        System.out.println();
+        System.out.println("nombre d'essais : 1000");
+        System.out.println();
+        System.out.println("(n,p,r)= probants %");
+        System.out.println();
+
+        for (int n : nlist) {
+            for (Double r : rlist) {
+                for (Double p : plist) {
+                    String e = "(" + n + "," + p + "," + r + ")=" + repeatRandom(n, p, r, 1000);
+                    System.out.println(e);
+
+                }
+            }
+        }
+        System.out.println("Fin : " + new Date(System.currentTimeMillis()).toString());
+
+
+    }
+
+    public static double repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
         //System.out.print("("+nSommets+","+probablite+","+rougirSommets+")= ");
-        float expriences, probants;
+        double expriences, probants;
         expriences = probants = 0;
         while (expriences != nb) {
             expriences++;
@@ -107,11 +207,94 @@ public class MainTest {
         }
 
 
-        return (new DecimalFormat("##.##").format((probants / expriences) * 100) + "%");
+//        return (new DecimalFormat("##.##").format((probants / expriences) * 100) + "%");
+        return (probants / expriences);
+
     }
 
-    public static void main(String... args) {
 
+    public static double getT(int n, double p) {
+        System.out.println("n:" + n + " p:" + p);
+        List<Double> ld = new ArrayList<>();
+        HashMap<Double, Double> nearbyMap = new HashMap<>();
+        for (double i = 0.0; i < 1.0; i += 0.05) {
+            ld.add(i);
+
+        }
+        System.out.print("nearby ");
+        ld.forEach(r -> {
+            System.out.print(r + " ");
+            nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
+        });
+        System.out.println();
+        System.out.println("map 1: ");
+        nearbyMap.forEach((est, nord) -> System.out.println(est + " | " + nord));
+
+        double minv = Double.MAX_VALUE;
+        double k = 1;
+        for (double r : nearbyMap.keySet()) {
+            double temp = nearbyMap.get(r);
+            if (temp < minv) {
+                minv = temp;
+                k = r;
+            }
+        }
+        System.out.println("k:" + k + " m:" + minv);
+        nearbyMap.clear();
+        ld.clear();
+
+        double pas = 0.005;
+        if (Math.abs(repeatRandom(n, p, k + pas, 1000) - 0.5) > minv) {
+            System.out.println("cas --");
+            for (double i = minv; i > k - 0.05; i -= pas) {
+                ld.add(i);
+
+            }
+            System.out.print("nearby ");
+
+            ld.forEach(r -> {
+                System.out.print(r + " ");
+                nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
+            });
+
+
+        } else {
+            //cas++
+            System.out.println("cas ++");
+            for (double i = minv; i < k + 0.05; i += pas) {
+                ld.add(i);
+
+            }
+            System.out.print("nearby ");
+
+            ld.forEach(r -> {
+                System.out.print(r + " ");
+                nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
+            });
+        }
+        System.out.println("map 2: ");
+        nearbyMap.forEach((est, nord) -> System.out.println(est + " | " + nord));
+
+
+        double key = Double.MAX_VALUE;
+        for (double r : nearbyMap.keySet()) {
+            double temp = nearbyMap.get(r);
+            if (temp < minv) {
+                minv = temp;
+                key = r;
+            }
+        }
+        System.out.println("k:" + key + " m:" + minv);
+        return key;
+    }
+
+
+
+
+
+
+    public static void main(String... args) {
+/*
         System.out.println("Création des graphes");
 
         Graphe grapheA = new Graphe("res/grapheA.txt");
@@ -158,10 +341,17 @@ public class MainTest {
         testG.colorateGraphe(0.2);
         testG.print();
 
-
+*/
         String path = "log.txt";
 
-        genereTests(new File(path));
+        //genereTests(new File(path));
+        //System.out.println(compareLogs(new File("res/logs/l1.txt"),new File("res/logs/l2.txt")));
+
+
+        System.out.println(getT(50, 0.1));
+
+
+
 
 
     }

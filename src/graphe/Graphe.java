@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
@@ -241,26 +242,23 @@ public class Graphe {
     public boolean isSquencePossible() {
         if (this.nbSommets == 0)
             return false;
-        /*
+
         if (this.nbAretes == 0)
-            return false;
+            return true;
 
 
         if (this.mapColors.nbSommetsRouges() == 0)
             return true;
 
-        if (this.nbSommets == this.mapColors.nbSommetsRouges())
-            return false;
-            */
         else {
             ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
             LinkedList<String> path = new LinkedList<>();
+            int nsommets = this.listeAdjacence.getNbSommets();
+            while (path.size() != nsommets) {
 
-            while (path.size() != this.listeAdjacence.getNbSommets()) {
 
-
-                String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors, path));
-                if (listeAdjacenceTemp.getNbRougeRestantsDansListe(mapColors, path, smax) > 3)
+                String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(mapColors));
+                if (listeAdjacenceTemp.getNbRougeRestantsDansListe(mapColors, smax) > 3)
                     return false;
                 path.add(smax);
                 listeAdjacenceTemp.deleteSommet(smax);
@@ -269,6 +267,29 @@ public class Graphe {
         }
         return true;
     }
+
+    private double repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
+        float expriences, probants;
+        expriences = probants = 0;
+        while (expriences != nb) {
+            expriences += 1;
+
+            Graphe graphe = new Graphe(nSommets, probablite);
+            graphe.colorateGraphe(rougirSommets);
+            if (graphe.isSquencePossible()) {
+                probants++;
+            }
+
+        }
+
+
+        return Double.parseDouble((new DecimalFormat("##.##").format((probants / expriences) * 100)));
+    }
+
+
+
+
+
 
 
 }
