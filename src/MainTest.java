@@ -1,4 +1,5 @@
 import graphe.Graphe;
+import graphe.Sequence2destructrice;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -214,24 +215,32 @@ public class MainTest {
 
 
     public static double getT(int n, double p) {
-        System.out.println("n:" + n + " p:" + p);
+        //System.out.println("n:" + n + " p:" + p);
         List<Double> ld = new ArrayList<>();
         HashMap<Double, Double> nearbyMap = new HashMap<>();
         for (double i = 0.0; i < 1.0; i += 0.05) {
             ld.add(i);
 
         }
-        System.out.print("nearby ");
+
+        /**
+         * On stocke la difference entre le resultat et 1/2
+         * Plus c'est petit plus on s'approche de 1/2
+         */
+        //System.out.print("nearby ");
         ld.forEach(r -> {
-            System.out.print(r + " ");
+            //System.out.print(r + " ");
             nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
         });
-        System.out.println();
-        System.out.println("map 1: ");
-        nearbyMap.forEach((est, nord) -> System.out.println(est + " | " + nord));
-
+        //System.out.println();
+        //System.out.println("map 1: ");
+        //nearbyMap.forEach((est, nord) -> System.out.println(est + " | " + nord));
+        /**
+         * on cherche le resultat le plus proche de 1/2 donc la diff la plus petite
+         *
+         */
         double minv = Double.MAX_VALUE;
-        double k = 1;
+        double k = -1.0;
         for (double r : nearbyMap.keySet()) {
             double temp = nearbyMap.get(r);
             if (temp < minv) {
@@ -239,44 +248,68 @@ public class MainTest {
                 k = r;
             }
         }
-        System.out.println("k:" + k + " m:" + minv);
+        /**
+         * il est maintenant dans k ( c'est la clé)
+         */
+        //System.out.println("k:" + k + " m:" + minv);
         nearbyMap.clear();
         ld.clear();
 
         double pas = 0.005;
-        if (Math.abs(repeatRandom(n, p, k + pas, 1000) - 0.5) > minv) {
-            System.out.println("cas --");
-            for (double i = minv; i > k - 0.05; i -= pas) {
+
+
+        /**
+         * on regarde si en diminuant ou en augmentant d'un yota on s'approche plus
+         */
+
+        double diffplus=  Math.abs(repeatRandom(n, p, k + pas, 1000) - 0.5);
+        double diffmoins =  Math.abs(repeatRandom(n, p, k - pas, 1000) - 0.5);
+
+
+/**
+ * on regarde si on doit -- ou ++
+ */
+        if (diffmoins<diffplus) {
+            //System.out.println("cas --");
+            Double kfixe=k;
+            for (double i = kfixe; i < k - 0.05; i -= pas) {
                 ld.add(i);
 
             }
-            System.out.print("nearby ");
-
+            //System.out.print("nearby ");
+/**
+ * on remet des resultats dans la map
+ */
             ld.forEach(r -> {
-                System.out.print(r + " ");
+                //System.out.print(r + " ");
                 nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
             });
 
 
         } else {
             //cas++
-            System.out.println("cas ++");
-            for (double i = minv; i < k + 0.05; i += pas) {
+            //System.out.println("cas ++");
+            Double kfixe=k;
+            for (double i = kfixe; i < k + 0.05; i += pas) {
                 ld.add(i);
 
             }
-            System.out.print("nearby ");
+            //System.out.print("nearby ");
 
             ld.forEach(r -> {
-                System.out.print(r + " ");
+                //System.out.print(r + " ");
                 nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
             });
         }
-        System.out.println("map 2: ");
-        nearbyMap.forEach((est, nord) -> System.out.println(est + " | " + nord));
+        //System.out.println("map 2: ");
+        //nearbyMap.forEach((est, nord) -> System.out.println(est + " | " + nord));
 
-
+/**
+ * on cherche encore le r pout lequel on est le plus proche de 1/2
+ */
         double key = Double.MAX_VALUE;
+        minv=Double.MAX_VALUE;
+
         for (double r : nearbyMap.keySet()) {
             double temp = nearbyMap.get(r);
             if (temp < minv) {
@@ -284,7 +317,7 @@ public class MainTest {
                 key = r;
             }
         }
-        System.out.println("k:" + key + " m:" + minv);
+        //System.out.println("k:" + key + " m:" + minv);
         return key;
     }
 
@@ -294,7 +327,7 @@ public class MainTest {
 
 
     public static void main(String... args) {
-/*
+
         System.out.println("Création des graphes");
 
         Graphe grapheA = new Graphe("res/grapheA.txt");
@@ -341,19 +374,39 @@ public class MainTest {
         testG.colorateGraphe(0.2);
         testG.print();
 
-*/
+
         String path = "log.txt";
 
         //genereTests(new File(path));
         //System.out.println(compareLogs(new File("res/logs/l1.txt"),new File("res/logs/l2.txt")));
 
 
-        System.out.println(getT(50, 0.1));
+
+
+/*
+
+
+        ArrayList<Integer> nValues=new ArrayList<>();
+        nValues.add(50);
+        nValues.add(100);
 
 
 
+        ArrayList<Double>pValues=new ArrayList<>();
+        pValues.add(0.1);
+        pValues.add(0.3);
+        pValues.add(0.5);
+        pValues.add(0.7);
 
-
+        for (Integer n :nValues ){
+            for (Double p : pValues){
+                System.out.println("n: "+n+" p: "+p);
+                for(int i = 0;i<10;i++)
+                System.out.printf("%f\n",getT(n, p));
+            }
+            System.out.println();
+        }
+*/
     }
 
 }
