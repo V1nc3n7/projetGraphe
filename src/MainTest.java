@@ -1,4 +1,5 @@
 import graphe.Graphe;
+import resets.NearbyMap;
 import resets.Resultat;
 
 import java.io.*;
@@ -271,6 +272,60 @@ public class MainTest {
 
     }
 
+    private static Resultat getRv2(int n, double p) {
+        double biais = 0.5;
+        double pas = 0.1;
+        int nbEssais = 1000;
+        NearbyMap nearbyMap = new NearbyMap(biais);
+        ArrayList<Double> params = new ArrayList<>();
+
+
+        for (double d = 0.0; d <= 1.0; d += pas) {
+            params.add(d);
+        }
+
+        params.forEach(r -> nearbyMap.add(r, repeatRandom(n, p, r, nbEssais)));
+
+        nearbyMap.print();
+        Resultat lolilol = nearbyMap.getBest();
+        System.out.println("(" + lolilol.getParametre() + ") " + lolilol.getValeur());
+
+        params.clear();
+        nearbyMap.clear();
+        pas = 0.01;
+        double ddfixe = lolilol.getParametre();
+        if (Math.abs(repeatRandom(n, p, lolilol.getParametre() + pas, nbEssais) - biais) > Math.abs(repeatRandom(n, p, lolilol.getParametre() - pas, 1000))) {
+            //--
+            System.out.println("-");
+
+            for (double dd = ddfixe; dd > ddfixe - 0.1; dd -= pas) {
+                params.add(dd);
+            }
+
+
+        } else {
+            //System.out.println("+"+ddfixe);
+            for (double dd = ddfixe; dd < ddfixe + 0.1; dd += pas) {
+                // System.out.println(dd+" ");
+                params.add(dd);
+            }
+            System.out.println();
+
+        }
+        params.forEach(r -> {
+            //System.out.println("-"+r+"-");
+            nearbyMap.add(r, repeatRandom(n, p, r, nbEssais));
+
+        });
+        nearbyMap.print();
+        lolilol = nearbyMap.getBest();
+        System.out.println("(" + lolilol.getParametre() + ") " + lolilol.getValeur());
+
+///todo
+        return lolilol;
+    }
+
+
     private static Resultat getR(int n, double p) {
         double buttee = 0.01;
         double biais = 0.5;
@@ -320,13 +375,13 @@ public class MainTest {
 
         ArrayList<Double> pValues = new ArrayList<>();
         pValues.add(0.1);
-        //  pValues.add(0.3);
-        // pValues.add(0.5);
-        //pValues.add(0.7);
+        pValues.add(0.3);
+        pValues.add(0.5);
+        pValues.add(0.7);
         for (Integer n : nValues) {
             for (Double p : pValues) {
                 System.out.println("repeatRandom(" + n + "," + p + ")");
-                double tmp = getR(n, p).getValeur() * 100;
+                double tmp = getRv2(n, p).getParametre() * 100;
                 System.out.println("r: " + tmp + "%");
                 //getR(n, p);
             }
