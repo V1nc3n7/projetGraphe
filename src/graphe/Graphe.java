@@ -17,6 +17,10 @@ import java.util.Random;
 
 public class Graphe {
     /**
+     * Liste d'adjacence du Graphe
+     */
+    private final ListeAdjacence listeAdjacence;
+    /**
      * Nombre de sommets du Graphe
      */
     private int nbSommets;
@@ -28,10 +32,6 @@ public class Graphe {
      * Couleur de chaque sommet
      */
     private CouleurSommet mapColors;
-    /**
-     * Liste d'adjacence du Graphe
-     */
-    private final ListeAdjacence listeAdjacence;
 
 
     /**
@@ -84,8 +84,10 @@ public class Graphe {
         this.nbAretes = listeAdjacence.getNbAretes();
     }
 
-    /**Générateur de graphe aléatoire
-     * @param nSommets nombre de sommmets du graphe
+    /**
+     * Générateur de graphe aléatoire
+     *
+     * @param nSommets   nombre de sommmets du graphe
      * @param probablite proba qu'un sommet complete une arete
      */
     public Graphe(int nSommets, double probablite) {
@@ -184,7 +186,6 @@ public class Graphe {
     }
 
     /**
-     *
      * @return
      */
     private int getNbSommets() {
@@ -192,12 +193,12 @@ public class Graphe {
     }
 
     /**
-     *
      * @return
      */
     private int getNbAretes() {
         return this.listeAdjacence.getNbAretes();
     }
+
     /**
      * @return null si pas de sequence possible ,à nous de verifier avant
      */
@@ -217,7 +218,6 @@ public class Graphe {
 
 
     /**
-     *
      * @param m
      * @return
      */
@@ -236,7 +236,6 @@ public class Graphe {
     }
 
     /**
-     *
      * @return
      */
     public boolean isSquencePossible() {
@@ -285,11 +284,6 @@ public class Graphe {
 
         return Double.parseDouble((new DecimalFormat("##.##").format((probants / expriences) * 100)));
     }
-
-
-
-
-
 
 
 }

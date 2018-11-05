@@ -33,7 +33,9 @@ public class ListeAdjacence {
         nbSommets = 0;
     }
 
-    /**Crée une arête xy (et yx)
+    /**
+     * Crée une arête xy (et yx)
+     *
      * @param sommetX le nom du sommet x
      * @param sommetY le nom du sommet y
      */
@@ -56,7 +58,6 @@ public class ListeAdjacence {
     }
 
     /**
-     *
      * @param sommet le nom du sommet à ajouter
      */
     public void addSommet(String sommet) {
@@ -67,7 +68,6 @@ public class ListeAdjacence {
     }
 
     /**
-     *
      * @param x le nom du sommet x
      * @param y le nom du sommet y
      * @return
@@ -80,7 +80,6 @@ public class ListeAdjacence {
     }
 
     /**
-     *
      * @param sommet le nom du sommet à rechercher
      * @return
      */
@@ -100,14 +99,15 @@ public class ListeAdjacence {
 
     /**
      * Calcul de degrés
+     *
      * @param sommet le nom du sommet
      * @return Le degré du sommet
      */
     public int degre(String sommet) {
         return this.voisinsDe(sommet).size();
     }
+
     /**
-     *
      * @return
      */
     public ListeAdjacence copy() {
@@ -117,7 +117,6 @@ public class ListeAdjacence {
     }
 
     /**
-     *
      * @param sommet le nom du sommet à supprimer
      */
     public void deleteSommet(String sommet) {
@@ -128,7 +127,6 @@ public class ListeAdjacence {
     }
 
     /**
-     *
      * @param sommet
      * @param liste
      */
@@ -140,7 +138,6 @@ public class ListeAdjacence {
     }
 
     /**
-     *
      * @param couleurMap
      * @param chemin
      * @param sommet
@@ -164,8 +161,8 @@ public class ListeAdjacence {
         }
         return r;
     }
+
     /**
-     *
      * @param couleurMap
      * @param chemin
      * @return
@@ -184,8 +181,8 @@ public class ListeAdjacence {
         this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(couleurMap, s)));
         return min;
     }
+
     /**
-     *
      * @return
      */
     public Map<String, List<String>> getListeAdjacence() {

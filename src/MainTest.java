@@ -1,5 +1,5 @@
 import graphe.Graphe;
-import graphe.Sequence2destructrice;
+import resets.Resultat;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -127,74 +127,8 @@ public class MainTest {
 
     }
 
-    private static void genereTests() {
-
-
-        ArrayList<Integer> nlist = new ArrayList<>();
-
-
-        nlist.add(10);
-        nlist.add(25);
-        nlist.add(50);
-        nlist.add(75);
-           /* nlist.add(100);
-            nlist.add(150);
-            nlist.add(200);
-            */
-
-
-        ArrayList<Double> plist = new ArrayList<>();
-        plist.add(0.0);
-        plist.add(0.1);
-        plist.add(0.2);
-        plist.add(0.3);
-        plist.add(0.4);
-        plist.add(0.5);
-        plist.add(0.6);
-        plist.add(0.7);
-        plist.add(0.8);
-        plist.add(0.9);
-        plist.add(1.0);
-
-
-        ArrayList<Double> rlist = new ArrayList<>();
-        rlist.add(0.0);
-        rlist.add(0.1);
-        rlist.add(0.2);
-        rlist.add(0.3);
-        rlist.add(0.4);
-        rlist.add(0.5);
-        rlist.add(0.6);
-        rlist.add(0.7);
-        rlist.add(0.8);
-        rlist.add(0.9);
-        rlist.add(1.0);
-
-
-        System.out.println("Debut : " + new Date(System.currentTimeMillis()).toString());
-
-        System.out.println();
-        System.out.println("nombre d'essais : 1000");
-        System.out.println();
-        System.out.println("(n,p,r)= probants %");
-        System.out.println();
-
-        for (int n : nlist) {
-            for (Double r : rlist) {
-                for (Double p : plist) {
-                    String e = "(" + n + "," + p + "," + r + ")=" + repeatRandom(n, p, r, 1000);
-                    System.out.println(e);
-
-                }
-            }
-        }
-        System.out.println("Fin : " + new Date(System.currentTimeMillis()).toString());
-
-
-    }
 
     public static double repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
-        //System.out.print("("+nSommets+","+probablite+","+rougirSommets+")= ");
         double expriences, probants;
         expriences = probants = 0;
         while (expriences != nb) {
@@ -204,18 +138,14 @@ public class MainTest {
             if (graphe.isSquencePossible()) {
                 probants++;
             }
-
         }
-
-
-//        return (new DecimalFormat("##.##").format((probants / expriences) * 100) + "%");
         return (probants / expriences);
-
     }
 
 
     public static double getT(int n, double p) {
         //System.out.println("n:" + n + " p:" + p);
+
         List<Double> ld = new ArrayList<>();
         HashMap<Double, Double> nearbyMap = new HashMap<>();
         for (double i = 0.0; i < 1.0; i += 0.05) {
@@ -262,16 +192,16 @@ public class MainTest {
          * on regarde si en diminuant ou en augmentant d'un yota on s'approche plus
          */
 
-        double diffplus=  Math.abs(repeatRandom(n, p, k + pas, 1000) - 0.5);
-        double diffmoins =  Math.abs(repeatRandom(n, p, k - pas, 1000) - 0.5);
+        double diffplus = Math.abs(repeatRandom(n, p, k + pas, 1000) - 0.5);
+        double diffmoins = Math.abs(repeatRandom(n, p, k - pas, 1000) - 0.5);
 
 
 /**
  * on regarde si on doit -- ou ++
  */
-        if (diffmoins<diffplus) {
+        if (diffmoins < diffplus) {
             //System.out.println("cas --");
-            Double kfixe=k;
+            Double kfixe = k;
             for (double i = kfixe; i < k - 0.05; i -= pas) {
                 ld.add(i);
 
@@ -289,7 +219,7 @@ public class MainTest {
         } else {
             //cas++
             //System.out.println("cas ++");
-            Double kfixe=k;
+            Double kfixe = k;
             for (double i = kfixe; i < k + 0.05; i += pas) {
                 ld.add(i);
 
@@ -308,7 +238,7 @@ public class MainTest {
  * on cherche encore le r pout lequel on est le plus proche de 1/2
  */
         double key = Double.MAX_VALUE;
-        minv=Double.MAX_VALUE;
+        minv = Double.MAX_VALUE;
 
         for (double r : nearbyMap.keySet()) {
             double temp = nearbyMap.get(r);
@@ -321,13 +251,91 @@ public class MainTest {
         return key;
     }
 
+    private static int comp(Resultat r1, Resultat r2, double biais) {
+        double run = Math.abs(r1.getValeur() - biais);
+        double rdeux = Math.abs(r2.getValeur() - biais);
+        /*
+          if (run==rdeux){
+            return 0;
+        }
+        if (run<rdeux){
+            return 1;
+        }
+
+        return -1;
+         */
+        return Double.compare(rdeux, run);
+
+        //return Double.compare(r2.getValeur(), r1.getValeur());
 
 
+    }
+
+    private static Resultat getR(int n, double p) {
+        double buttee = 0.01;
+        double biais = 0.5;
+        double pas = 0.1;
+        double debut = 0.0;
+        ArrayList<Resultat> resultats = new ArrayList<>();
+        int index = 0;
+        double param = debut;
+        double kompare;
+        do {
+            System.out.print("[" + index + "] ");
+            double ju = repeatRandom(n, p, param, 1000);
+            System.out.print(ju + " ");
+            resultats.add(new Resultat(param, ju));
+            int c = comp(resultats.get((index == 0) ? 0 : index - 1), resultats.get(index), biais);
+            switch (c) {
+                case 0:
+                    param += pas;
+                    System.out.print("(+) ");
+                    break;
+                case 1:
+                    pas /= 2;
+                    param -= pas;
+                    System.out.print("(-) ");
+                    break;
+                case -1:
+                    param += pas;
+                    System.out.print("(+) ");
+                    break;
+            }
 
 
+            kompare = Math.abs(resultats.get(index).getValeur() - biais);
+            System.out.println(kompare);
+            index++;
+        } while (kompare > buttee);
+
+        return resultats.get(index);
+    }
+
+
+    public static void getTableau() {
+        ArrayList<Integer> nValues = new ArrayList<>();
+        nValues.add(50);
+        // nValues.add(100);
+
+
+        ArrayList<Double> pValues = new ArrayList<>();
+        pValues.add(0.1);
+        //  pValues.add(0.3);
+        // pValues.add(0.5);
+        //pValues.add(0.7);
+        for (Integer n : nValues) {
+            for (Double p : pValues) {
+                System.out.println("repeatRandom(" + n + "," + p + ")");
+                double tmp = getR(n, p).getValeur() * 100;
+                System.out.println("r: " + tmp + "%");
+                //getR(n, p);
+            }
+        }
+
+    }
 
     public static void main(String... args) {
-
+/*
         System.out.println("Création des graphes");
 
         Graphe grapheA = new Graphe("res/grapheA.txt");
@@ -376,37 +384,10 @@ public class MainTest {
 
 
         String path = "log.txt";
-
+*/
         //genereTests(new File(path));
         //System.out.println(compareLogs(new File("res/logs/l1.txt"),new File("res/logs/l2.txt")));
+        getTableau();
 
-
-
-
-/*
-
-
-        ArrayList<Integer> nValues=new ArrayList<>();
-        nValues.add(50);
-        nValues.add(100);
-
-
-
-        ArrayList<Double>pValues=new ArrayList<>();
-        pValues.add(0.1);
-        pValues.add(0.3);
-        pValues.add(0.5);
-        pValues.add(0.7);
-
-        for (Integer n :nValues ){
-            for (Double p : pValues){
-                System.out.println("n: "+n+" p: "+p);
-                for(int i = 0;i<10;i++)
-                System.out.printf("%f\n",getT(n, p));
-            }
-            System.out.println();
-        }
-*/
     }
-
 }

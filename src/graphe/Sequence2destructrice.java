@@ -34,7 +34,6 @@ public class Sequence2destructrice {
 
 
     /**
-     *
      * @param sommet
      * @return
      */
@@ -43,7 +42,6 @@ public class Sequence2destructrice {
     }
 
     /**
-     *
      * @param index
      * @return
      */
@@ -52,7 +50,6 @@ public class Sequence2destructrice {
     }
 
     /**
-     *
      * @param index
      * @return
      */
@@ -61,7 +58,6 @@ public class Sequence2destructrice {
     }
 
     /**
-     *
      * @param s
      * @return
      */
@@ -70,7 +66,6 @@ public class Sequence2destructrice {
     }
 
     /**
-     *
      * @param o
      * @return
      */
@@ -79,7 +74,6 @@ public class Sequence2destructrice {
     }
 
     /**
-     *
      * @return
      */
     public int getNbSommets() {
@@ -87,7 +81,6 @@ public class Sequence2destructrice {
     }
 
     /**
-     *
      * @return
      */
     public List<String> getListeDeSommets() {

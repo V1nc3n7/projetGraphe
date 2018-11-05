@@ -28,8 +28,8 @@ public class CouleurSommet {
     public void addSommet(String sommet, Couleur couleur) {
         this.couleurSommet.put(sommet, couleur);
     }
+
     /**
-     *
      * @param sommet
      * @return
      */
