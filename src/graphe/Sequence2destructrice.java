@@ -13,7 +13,7 @@ public class Sequence2destructrice {
     /**
      *
      */
-    private List<String> listeDeSommets;
+    private final List<String> listeDeSommets;
 
     /**
      *
@@ -61,8 +61,8 @@ public class Sequence2destructrice {
      * @param s
      * @return
      */
-    public boolean add(String s) {
-        return listeDeSommets.add(s);
+    public void add(String s) {
+        listeDeSommets.add(s);
     }
 
     /**

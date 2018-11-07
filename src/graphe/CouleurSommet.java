@@ -8,7 +8,7 @@ import java.util.TreeMap;
  * @date 31/10/2018
  */
 
-public class CouleurSommet {
+class CouleurSommet {
     /**
      *
      */
@@ -41,10 +41,6 @@ public class CouleurSommet {
         int s = 0;
         for (String sommet : couleurSommet.keySet()) if (sommetIsRouge(sommet)) s++;
         return s;
-    }
-
-    public int nbSommetsBleus() {
-        return (this.couleurSommet.size() - this.nbSommetsRouges());
     }
 
 

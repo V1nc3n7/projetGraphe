@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
@@ -115,9 +114,7 @@ public class Graphe {
     public void colorateGraphe(double rougirSommets) {
         this.mapColors = new CouleurSommet();
         Random r = new Random();
-        listeAdjacence.getListeAdjacence().forEach((s, l) -> {
-            mapColors.addSommet(s, (r.nextDouble() <= rougirSommets) ? Couleur.ROUGE : Couleur.BLEU);
-        });
+        listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, (r.nextDouble() <= rougirSommets) ? Couleur.ROUGE : Couleur.BLEU));
     }
 
 
@@ -132,42 +129,6 @@ public class Graphe {
     }
 
 
-
-    /*
-        public boolean isSeq2destr(Sequence2destructrice sequence) {
-            System.out.println("sequence = " + sequence.getListeDeSommets().toString());
-            if (sequence.size() != this.nbSommets) {
-                return false;
-            } else {
-                ArrayList<String> cheminParcouru = new ArrayList<>();
-
-                //ListeAdjacence listeTemp = this.listeAdjacence.copy();
-                    ListeAdjacence listeTemp = this.listeAdjacence.copy();
-                for (String sommet : sequence.getListeDeSommets()) {
-                    System.out.println("("+ sommet +")");
-                    int sommetsRouges = 0;
-
-                    for (String voisin : listeTemp.voisinsDe(sommet)) {
-                        sommetsRouges += ((this.getCouleurDeSommet(voisin) == Couleur.ROUGE) ? 1 : 0);
-                    }
-                    if (sommetsRouges > 2) return false;
-                    else {
-                        listeTemp.deleteSommet(sommet);
-                    }
-
-                    cheminParcouru.add(sommet);
-                    System.out.println("c :" + cheminParcouru.toString());
-                    listeTemp.print();
-                    System.out.println(listeTemp.size());
-                }
-
-                return listeTemp.size() == 0;
-
-            }
-
-
-        }
-        */
 
     /**
      * @param sequence
@@ -267,23 +228,6 @@ public class Graphe {
         return true;
     }
 
-    private double repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
-        float expriences, probants;
-        expriences = probants = 0;
-        while (expriences != nb) {
-            expriences += 1;
-
-            Graphe graphe = new Graphe(nSommets, probablite);
-            graphe.colorateGraphe(rougirSommets);
-            if (graphe.isSquencePossible()) {
-                probants++;
-            }
-
-        }
-
-
-        return Double.parseDouble((new DecimalFormat("##.##").format((probants / expriences) * 100)));
-    }
 
 
 }

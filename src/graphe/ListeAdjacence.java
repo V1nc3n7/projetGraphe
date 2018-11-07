@@ -10,7 +10,7 @@ import java.util.TreeMap;
  * @date 31/10/2018
  */
 
-public class ListeAdjacence {
+class ListeAdjacence {
     /**
      *
      */
@@ -83,7 +83,7 @@ public class ListeAdjacence {
      * @param sommet le nom du sommet à rechercher
      * @return
      */
-    List<String> voisinsDe(String sommet) {
+    private List<String> voisinsDe(String sommet) {
 
 
         return listeAdjacence.get(sommet);
