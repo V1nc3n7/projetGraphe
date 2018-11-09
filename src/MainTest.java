@@ -114,7 +114,7 @@ public class MainTest {
             for (int n : nlist) {
                 for (Double r : rlist) {
                     for (Double p : plist) {
-                        String e = "(" + n + "," + p + "," + r + ")=" + repeatRandom(n, p, r, 1000);
+                        String e = "(" + n + "," + p + "," + r + ")=" + Main.repeatRandom(n, p, r, 1000);
                         System.out.println(e);
                         bw.write(e);
                         bw.newLine();
@@ -130,21 +130,6 @@ public class MainTest {
         }
 
 
-    }
-
-
-    public static double repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
-        double expriences, probants;
-        expriences = probants = 0;
-        while (expriences != nb) {
-            expriences++;
-            Graphe graphe = new Graphe(nSommets, probablite);
-            graphe.colorateGraphe(rougirSommets);
-            if (graphe.isSquencePossible()) {
-                probants++;
-            }
-        }
-        return (probants / expriences);
     }
 
 
@@ -165,7 +150,7 @@ public class MainTest {
         //System.out.print("nearby ");
         ld.forEach(r -> {
             //System.out.print(r + " ");
-            nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
+            nearbyMap.put(r, Math.abs(Main.repeatRandom(n, p, r, 1000) - 0.5));
         });
         //System.out.println();
         //System.out.println("map 1: ");
@@ -197,8 +182,8 @@ public class MainTest {
          * on regarde si en diminuant ou en augmentant d'un yota on s'approche plus
          */
 
-        double diffplus = Math.abs(repeatRandom(n, p, k + pas, 1000) - 0.5);
-        double diffmoins = Math.abs(repeatRandom(n, p, k - pas, 1000) - 0.5);
+        double diffplus = Math.abs(Main.repeatRandom(n, p, k + pas, 1000) - 0.5);
+        double diffmoins = Math.abs(Main.repeatRandom(n, p, k - pas, 1000) - 0.5);
 
 
 /**
@@ -217,7 +202,7 @@ public class MainTest {
  */
             ld.forEach(r -> {
                 //System.out.print(r + " ");
-                nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
+                nearbyMap.put(r, Math.abs(Main.repeatRandom(n, p, r, 1000) - 0.5));
             });
 
 
@@ -233,7 +218,7 @@ public class MainTest {
 
             ld.forEach(r -> {
                 //System.out.print(r + " ");
-                nearbyMap.put(r, Math.abs(repeatRandom(n, p, r, 1000) - 0.5));
+                nearbyMap.put(r, Math.abs(Main.repeatRandom(n, p, r, 1000) - 0.5));
             });
         }
         //System.out.println("map 2: ");
