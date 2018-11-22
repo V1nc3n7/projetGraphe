@@ -3,10 +3,6 @@ package graphe;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * @autor Vincent
- * @date 31/10/2018
- */
 
 class CouleurSommet {
     /**
