@@ -98,12 +98,12 @@ public class Main {
         //TestA
         double rougirSommets = 0.5;
         //TestA et TestB
-        int nSommets = 50;
-        double probablite = 0.1;
+        int nSommets = 100;
+        double probablite = 0.7;
 
         //On lance testA et testB avec les valeurs de base
         if (args.length == 0 || (!args[0].equals("testb") && !args[0].equals("testa"))) {
-            System.out.println("testA(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ",probaRougirSommets:" + rougirSommets + ")=" + testA(nSommets, probablite, rougirSommets)+"%");
+            //System.out.println("testA(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ",probaRougirSommets:" + rougirSommets + ")=" + testA(nSommets, probablite, rougirSommets)+"%");
             System.out.println("testB(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ")=" + testB(nSommets, probablite) * 100 + "%");
         } else {
             if (args[0] == "testa" && args.length == 4) {
