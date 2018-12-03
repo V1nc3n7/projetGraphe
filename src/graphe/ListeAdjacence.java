@@ -12,15 +12,15 @@ import java.util.TreeMap;
 
 class ListeAdjacence {
     /**
-     *La liste d'adjacence
+     * La liste d'adjacence
      */
     private Map<String, List<String>> listeAdjacence;
     /**
-     *Le nombre de sommets
+     * Le nombre de sommets
      */
     private int nbSommets;
     /**
-     *Le nombre d'arêtes
+     * Le nombre d'arêtes
      */
     private int nbAretes;
 
@@ -57,7 +57,9 @@ class ListeAdjacence {
 
     }
 
-    /**Ajoute un sommet au graphe
+    /**
+     * Ajoute un sommet au graphe
+     *
      * @param sommet le nom du sommet à ajouter
      */
     public void addSommet(String sommet) {
@@ -68,7 +70,6 @@ class ListeAdjacence {
     }
 
     /**
-     *
      * @param x le nom du sommet x
      * @param y le nom du sommet y
      * @return true si le graphe contient l'arete xy et yx false sinon
@@ -80,7 +81,9 @@ class ListeAdjacence {
                 listeAdjacence.get(y).contains(x));
     }
 
-    /**Accesseur des voisins de sommet
+    /**
+     * Accesseur des voisins de sommet
+     *
      * @param sommet le nom du sommet à rechercher
      * @return La liste étiquetée par sommet
      */
@@ -122,6 +125,7 @@ class ListeAdjacence {
 
     /**
      * Suppresssion d'un sommet (et de ses aretes)
+     *
      * @param sommet le nom du sommet à supprimer
      */
     public void deleteSommet(String sommet) {
@@ -131,9 +135,11 @@ class ListeAdjacence {
         nbSommets--;
     }
 
-    /** Ajout de la liste complete de sommets voisins
+    /**
+     * Ajout de la liste complete de sommets voisins
+     *
      * @param sommet le sommet en question
-     * @param liste la liste des voisons du sommet à supprimer
+     * @param liste  la liste des voisons du sommet à supprimer
      */
     private void add(String sommet, List<String> liste) {
         listeAdjacence.put(sommet, liste);
@@ -144,9 +150,10 @@ class ListeAdjacence {
 
     /**
      * Calcul du nombre de voisins rouges encore non parcouru (dans la liste) du sommet pere
+     *
      * @param couleurMap La coloration des Sommet
-     * @param chemin la liste des sommets parcourus
-     * @param sommet Le sommet pere
+     * @param chemin     la liste des sommets parcourus
+     * @param sommet     Le sommet pere
      * @return le nombre de sommet rouges restant dans les voisins de sommet - les sommets présents dans chemin
      */
     public int getNbRougeRestantsDansListe(CouleurSommet couleurMap, List<String> chemin, String sommet) {
@@ -176,10 +183,10 @@ class ListeAdjacence {
 
     /**
      * Calcul et genère une map de sommets rouges voisins
-     * @param couleurMap La coloration des Sommet
-     * @param chemin La liste des sommets parcourus
-     * @return Une map (sommet, nombre de voisins rouges de ce sommet )
      *
+     * @param couleurMap La coloration des Sommet
+     * @param chemin     La liste des sommets parcourus
+     * @return Une map (sommet, nombre de voisins rouges de ce sommet )
      */
     public Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap, List<String> chemin) {
         TreeMap<String, Integer> min = new TreeMap<>();
@@ -190,9 +197,9 @@ class ListeAdjacence {
 
     /**
      * Calcul et genère une map de sommets rouges
+     *
      * @param couleurMap La coloration des Sommet
      * @return Une map (sommet, nombre de voisins rouges)
-     *
      */
     public Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap) {
         TreeMap<String, Integer> min = new TreeMap<>();
@@ -200,7 +207,9 @@ class ListeAdjacence {
         return min;
     }
 
-    /**Accesseur de la liste d'adjacence
+    /**
+     * Accesseur de la liste d'adjacence
+     *
      * @return La liste d'adjacence
      */
     public Map<String, List<String>> getListeAdjacence() {
@@ -208,7 +217,7 @@ class ListeAdjacence {
     }
 
     /**
-     *  Calcul et affecte le nombre de sommets du graphe
+     * Calcul et affecte le nombre de sommets du graphe
      */
     private void computeNbSommets() {
         this.nbSommets = this.listeAdjacence.size();
@@ -225,7 +234,9 @@ class ListeAdjacence {
 
     }
 
-    /**Accesseur du nombre de sommets du graphe
+    /**
+     * Accesseur du nombre de sommets du graphe
+     *
      * @return
      */
     public int getNbSommets() {
@@ -233,7 +244,9 @@ class ListeAdjacence {
         return nbSommets;
     }
 
-    /**Accesseur du nombre d'aretes du graphe
+    /**
+     * Accesseur du nombre d'aretes du graphe
+     *
      * @return
      */
     public int getNbAretes() {
