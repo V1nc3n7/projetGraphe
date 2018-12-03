@@ -93,7 +93,7 @@ class Main {
         return Double.valueOf(res);
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         //Valeurs par défault
         //TestA
         double rougirSommets = 0.5;
@@ -101,12 +101,11 @@ class Main {
         int nSommets = 100;
         double probablite = 0.7;
 
-        //On lance testA et testB avec les valeurs de base
+        /*On lance testA et testB avec les valeurs de base*/
         if (args.length == 0 || (!args[0].equals("testb") && !args[0].equals("testa"))) {
-            //System.out.println("testA(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ",probaRougirSommets:" + rougirSommets + ")=" + testA(nSommets, probablite, rougirSommets)+"%");
             System.out.println("testB(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ")=" + testB(nSommets, probablite) * 100 + "%");
         } else {
-            if (args[0] == "testa" && args.length == 4) {
+            if (args[0].equals("testa") && args.length == 4) {
                 nSommets = Integer.valueOf(args[1]);
                 probablite = Double.valueOf(args[2]);
                 rougirSommets = Double.valueOf(args[3]);
@@ -114,7 +113,7 @@ class Main {
             } else {
                 System.out.println("Paramètres invalides");
             }
-            if (args[0] == "testb" && args.length == 3) {
+            if (args[0].equals("testb") && args.length == 3) {
                 nSommets = Integer.valueOf(args[1]);
                 probablite = Double.valueOf(args[2]);
                 System.out.println("testB(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ")=" + testB(nSommets, probablite) * 100 + "%");

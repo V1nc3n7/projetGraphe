@@ -19,7 +19,8 @@ class CouleurSommet {
 
     /**
      * Ajout d'un sommet de couleur couleur
-     * @param sommet le sommet
+     *
+     * @param sommet  le sommet
      * @param couleur la couleur
      */
     public void addSommet(String sommet, Couleur couleur) {
@@ -27,7 +28,6 @@ class CouleurSommet {
     }
 
     /**
-     *
      * @param sommet le sommet à interroger
      * @return true si sommet est rouge false sinon
      */

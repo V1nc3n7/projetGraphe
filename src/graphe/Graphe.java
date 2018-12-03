@@ -92,23 +92,35 @@ public class Graphe {
     public Graphe(int nSommets, double probablite) {
         this.mapColors = new CouleurSommet();
         this.listeAdjacence = new ListeAdjacence();
+        // au cas ou on est pas dans les borne
+        if (nSommets > 0 && (probablite >= 0 && probablite <= 1)) {
+            for (int i = 1; i <= nSommets; i++) {
+                String sommet = "v" + i;
+                listeAdjacence.addSommet(sommet);
+            }
+            Random r = new Random();
+            listeAdjacence.getListeAdjacence().forEach((verticies, arcs) -> {
+                        for (String edge : listeAdjacence.getListeAdjacence().keySet())
+                            if (!(edge.equals(verticies)))
+                                if (r.nextDouble() <= probablite) listeAdjacence.addArete(verticies, edge);
+                    }
+            );
 
-        for (int i = 1; i <= nSommets; i++) {
-            String sommet = "v" + i;
-            listeAdjacence.addSommet(sommet);
-        }
-        Random r = new Random();
-        listeAdjacence.getListeAdjacence().forEach((verticies, arcs) -> {
-            for (String edge : listeAdjacence.getListeAdjacence().keySet())
-                if (!(edge.equals(verticies)))
-                    if (r.nextDouble() <= probablite) listeAdjacence.addArete(verticies, edge);
-                }
-        );
+            listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, Couleur.BLEU));
+            this.nbSommets = listeAdjacence.getNbSommets();
+            this.nbAretes = listeAdjacence.getNbAretes();
 
-        listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, Couleur.BLEU));
-        this.nbSommets = listeAdjacence.getNbSommets();
-        this.nbAretes = listeAdjacence.getNbAretes();
+        } else System.err.println("RTFM !");
+    }
 
+    /**
+     * @param nSommets
+     * @param probablite
+     * @param rouge
+     */
+    public Graphe(int nSommets, double probablite, double rouge) {
+        this(nSommets, probablite);
+        this.colorateGraphe(rouge);
     }
 
     public void colorateGraphe(double rougirSommets) {
@@ -118,7 +130,7 @@ public class Graphe {
     }
 
     /**
-     *
+     * Affiche le graphe
      */
     public void print() {
 
@@ -128,9 +140,10 @@ public class Graphe {
     }
 
 
-    /**
-     * @param sequence
-     * @return
+    /**Testeur de sequence
+     * @param sequence la sequence du graphe à tester
+     * @return true si la sequence passée est compatible avec le graphe , false sinon
+     *
      */
     public boolean isSeq2destr(Sequence2destructrice sequence) {
         System.out.println("sequence = " + sequence.toString());
@@ -144,7 +157,7 @@ public class Graphe {
         return cheminParcouru.size() == this.getNbSommets();
     }
 
-    /**
+    /** Accesseur du nombre de sommets du graphe
      * @return
      */
     private int getNbSommets() {
@@ -152,6 +165,7 @@ public class Graphe {
     }
 
     /**
+     * Accesseur du nombre d'arêtes du graphe
      * @return
      */
     private int getNbAretes() {
@@ -159,7 +173,8 @@ public class Graphe {
     }
 
     /**
-     * @return null si pas de sequence possible ,à nous de verifier avant
+     * Calcule une sequence
+     * @return sequence vide si pas de sequence possible , une des sequences possible sinon
      */
     public Sequence2destructrice generateSequence() {
         if (!(isSquencePossible())) return null;
@@ -176,9 +191,9 @@ public class Graphe {
     }
 
 
-    /**
-     * @param m
-     * @return
+    /** Accesseur du sommet possible suivant  dans la sequence
+     * @param m La map de (sommet , nombre de sommets rouges)
+     * @return Le sommet ayant le moins de sommets rouges
      */
     private String getMinSommet(Map<String, Integer> m) {
 
@@ -194,8 +209,8 @@ public class Graphe {
 
     }
 
-    /**
-     * @return
+    /**Testeur de sequence
+     * @return true si le graphe est candidat à une sequence2destructrice false sinon
      */
     public boolean isSquencePossible() {
         if (this.nbSommets == 0)

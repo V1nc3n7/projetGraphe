@@ -16,7 +16,7 @@ public class Sequence2destructrice {
     private final List<String> listeDeSommets;
 
     /**
-     *Constructeur
+     * Constructeur
      */
     Sequence2destructrice() {
         this.listeDeSommets = new ArrayList<>();
@@ -24,6 +24,7 @@ public class Sequence2destructrice {
 
     /**
      * Constructeur non vide
+     *
      * @param liste la liste des sommets
      */
     public Sequence2destructrice(String liste) {
@@ -35,7 +36,6 @@ public class Sequence2destructrice {
 
 
     /**
-     *
      * @param sommet
      * @return true si la sequence contient le sommet false sinon
      */
@@ -45,6 +45,7 @@ public class Sequence2destructrice {
 
     /**
      * Accesseur indexé
+     *
      * @param index l'index de la sequence
      * @return le sommet a la i-eme position
      */
@@ -54,6 +55,7 @@ public class Sequence2destructrice {
 
     /**
      * Suppresseur indexé
+     *
      * @param index l'index de la sequence
      * @return le sommet a la i-eme position apres etre supprimé
      */
@@ -63,6 +65,7 @@ public class Sequence2destructrice {
 
     /**
      * Ajoue d'un sommet
+     *
      * @param s
      * @return
      */
@@ -79,7 +82,6 @@ public class Sequence2destructrice {
     }
 
     /**
-     *
      * @return La taille de la liste
      */
     public int getNbSommets() {

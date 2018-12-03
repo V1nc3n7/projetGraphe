@@ -1,5 +1,4 @@
 import graphe.Graphe;
-import graphe.Sequence2destructrice;
 
 /**
  * Test de Graphes
@@ -8,7 +7,9 @@ public class MainTest {
 
 
     public static void main(String... args) {
-
+        Graphe dddd = new Graphe(45, 0.74);
+        dddd.print();
+/*
         System.out.println("Création des graphes");
 
         Graphe grapheA = new Graphe("res/grapheA.txt");
@@ -54,6 +55,6 @@ public class MainTest {
         System.out.println("Coloration de 20%");
         testG.colorateGraphe(0.2);
         testG.print();
-
+*/
     }
 }
