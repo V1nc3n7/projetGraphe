@@ -11,19 +11,20 @@ import java.util.List;
 
 public class Sequence2destructrice {
     /**
-     *
+     * La sequence
      */
     private final List<String> listeDeSommets;
 
     /**
-     *
+     *Constructeur
      */
     Sequence2destructrice() {
         this.listeDeSommets = new ArrayList<>();
     }
 
     /**
-     * @param liste
+     * Constructeur non vide
+     * @param liste la liste des sommets
      */
     public Sequence2destructrice(String liste) {
 
@@ -34,30 +35,34 @@ public class Sequence2destructrice {
 
 
     /**
+     *
      * @param sommet
-     * @return
+     * @return true si la sequence contient le sommet false sinon
      */
     public boolean contains(String sommet) {
         return listeDeSommets.contains(sommet);
     }
 
     /**
-     * @param index
-     * @return
+     * Accesseur indexé
+     * @param index l'index de la sequence
+     * @return le sommet a la i-eme position
      */
     public String get(int index) {
         return listeDeSommets.get(index);
     }
 
     /**
-     * @param index
-     * @return
+     * Suppresseur indexé
+     * @param index l'index de la sequence
+     * @return le sommet a la i-eme position apres etre supprimé
      */
     public String remove(int index) {
         return listeDeSommets.remove(index);
     }
 
     /**
+     * Ajoue d'un sommet
      * @param s
      * @return
      */
@@ -66,22 +71,23 @@ public class Sequence2destructrice {
     }
 
     /**
-     * @param o
-     * @return
+     * @param s le sommet
+     * @return l'indice de s
      */
-    public int indexOf(Object o) {
-        return listeDeSommets.indexOf(o);
+    public int indexOf(String s) {
+        return listeDeSommets.indexOf(s);
     }
 
     /**
-     * @return
+     *
+     * @return La taille de la liste
      */
     public int getNbSommets() {
         return listeDeSommets.size();
     }
 
     /**
-     * @return
+     * @return la liste de sommets
      */
     public List<String> getListeDeSommets() {
         return listeDeSommets;

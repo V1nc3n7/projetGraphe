@@ -117,7 +117,6 @@ public class Graphe {
         listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, (r.nextDouble() <= rougirSommets) ? Couleur.ROUGE : Couleur.BLEU));
     }
 
-
     /**
      *
      */

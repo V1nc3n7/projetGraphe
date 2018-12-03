@@ -1,22 +1,10 @@
 import graphe.Graphe;
 import graphe.Sequence2destructrice;
 
+/**
+ * Test de Graphes
+ */
 public class MainTest {
-
-
-    public static double repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
-        double expriences, probants;
-        expriences = probants = 0;
-        while (expriences != nb) {
-            expriences++;
-            Graphe graphe = new Graphe(nSommets, probablite);
-            graphe.colorateGraphe(rougirSommets);
-            if (graphe.isSquencePossible()) {
-                probants++;
-            }
-        }
-        return (probants / expriences);
-    }
 
 
     public static void main(String... args) {
@@ -63,7 +51,7 @@ public class MainTest {
         Graphe testG = new Graphe(30, 0.6);
         testG.print();
         System.out.println();
-
+        System.out.println("Coloration de 20%");
         testG.colorateGraphe(0.2);
         testG.print();
 
