@@ -13,7 +13,7 @@ class CouleurSommet {
     /**
      *
      */
-    public CouleurSommet() {
+    CouleurSommet() {
         this.couleurSommet = new TreeMap<>();
     }
 
@@ -23,7 +23,7 @@ class CouleurSommet {
      * @param sommet  le sommet
      * @param couleur la couleur
      */
-    public void addSommet(String sommet, Couleur couleur) {
+    void addSommet(String sommet, Couleur couleur) {
         this.couleurSommet.put(sommet, couleur);
     }
 
@@ -31,7 +31,7 @@ class CouleurSommet {
      * @param sommet le sommet à interroger
      * @return true si sommet est rouge false sinon
      */
-    public boolean sommetIsRouge(String sommet) {
+    boolean sommetIsRouge(String sommet) {
         return this.couleurSommet.get(sommet).equals(Couleur.ROUGE);
     }
 
@@ -41,7 +41,7 @@ class CouleurSommet {
      *
      * @return le nombre de sommets rouges (<= this.size)
      */
-    public int nbSommetsRouges() {
+    int nbSommetsRouges() {
         int s = 0;
         for (String sommet : couleurSommet.keySet()) if (sommetIsRouge(sommet)) s++;
         return s;
@@ -51,8 +51,11 @@ class CouleurSommet {
     /**
      * Affiche la coloration des sommets
      */
-    public void print() {
+    void print() {
         System.out.println("Couleurs :");
         couleurSommet.forEach((sommet, couleur) -> System.out.println("[" + sommet + "] - " + couleur));
+        System.out.println("Sommets rouges ( " + nbSommetsRouges() + " )");
+        System.out.println("Sommets bleus ( " + (couleurSommet.size() - nbSommetsRouges()) + " )");
+
     }
 }

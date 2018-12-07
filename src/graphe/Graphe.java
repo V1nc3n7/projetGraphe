@@ -89,7 +89,7 @@ public class Graphe {
      * @param nSommets   nombre de sommmets du graphe
      * @param probablite proba qu'un sommet complete une arete
      */
-    public Graphe(int nSommets, double probablite) {
+    private Graphe(int nSommets, double probablite) {
         this.mapColors = new CouleurSommet();
         this.listeAdjacence = new ListeAdjacence();
         // au cas ou on est pas dans les borne
@@ -113,17 +113,22 @@ public class Graphe {
         } else System.err.println("RTFM !");
     }
 
-    /**
-     * @param nSommets
-     * @param probablite
-     * @param rouge
+    /** Générateur aléatoire Complet
+     * @param nSommets Nombre de sommets du graphe
+     * @param probablite Proba de voisinage
+     * @param rouge probabilité de coloration rouge du sommmet
      */
     public Graphe(int nSommets, double probablite, double rouge) {
         this(nSommets, probablite);
         this.colorateGraphe(rouge);
     }
 
-    public void colorateGraphe(double rougirSommets) {
+    /**
+     * Coloration des sommmets en rouge
+     *
+     * @param rougirSommets Probabilité de coloration d'un sommet en rouge
+     */
+    private void colorateGraphe(double rougirSommets) {
         this.mapColors = new CouleurSommet();
         Random r = new Random();
         listeAdjacence.getListeAdjacence().forEach((s, l) -> mapColors.addSommet(s, (r.nextDouble() <= rougirSommets) ? Couleur.ROUGE : Couleur.BLEU));
@@ -140,10 +145,11 @@ public class Graphe {
     }
 
 
-    /**Testeur de sequence
+    /**
+     * Testeur de sequence
+     *
      * @param sequence la sequence du graphe à tester
      * @return true si la sequence passée est compatible avec le graphe , false sinon
-     *
      */
     public boolean isSeq2destr(Sequence2destructrice sequence) {
         System.out.println("sequence = " + sequence.toString());
@@ -157,8 +163,10 @@ public class Graphe {
         return cheminParcouru.size() == this.getNbSommets();
     }
 
-    /** Accesseur du nombre de sommets du graphe
-     * @return
+    /**
+     * Accesseur du nombre de sommets du graphe
+     *
+     * @return la taille de la liste d'adjacence
      */
     private int getNbSommets() {
         return this.listeAdjacence.getNbSommets();
@@ -166,7 +174,8 @@ public class Graphe {
 
     /**
      * Accesseur du nombre d'arêtes du graphe
-     * @return
+     *
+     * @return la somme des taille des listes dans la liste d'adjacence
      */
     private int getNbAretes() {
         return this.listeAdjacence.getNbAretes();
@@ -174,6 +183,7 @@ public class Graphe {
 
     /**
      * Calcule une sequence
+     *
      * @return sequence vide si pas de sequence possible , une des sequences possible sinon
      */
     public Sequence2destructrice generateSequence() {
@@ -191,7 +201,9 @@ public class Graphe {
     }
 
 
-    /** Accesseur du sommet possible suivant  dans la sequence
+    /**
+     * Accesseur du sommet possible suivant  dans la sequence
+     *
      * @param m La map de (sommet , nombre de sommets rouges)
      * @return Le sommet ayant le moins de sommets rouges
      */
@@ -209,7 +221,9 @@ public class Graphe {
 
     }
 
-    /**Testeur de sequence
+    /**
+     * Testeur de sequence
+     *
      * @return true si le graphe est candidat à une sequence2destructrice false sinon
      */
     public boolean isSquencePossible() {

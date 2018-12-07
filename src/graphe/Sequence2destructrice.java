@@ -35,8 +35,8 @@ public class Sequence2destructrice {
     }
 
 
-    /**
-     * @param sommet
+    /** Teste l'existence d'un sommet
+     * @param sommet Le nom du sommet à chercher
      * @return true si la sequence contient le sommet false sinon
      */
     public boolean contains(String sommet) {
@@ -64,16 +64,15 @@ public class Sequence2destructrice {
     }
 
     /**
-     * Ajoue d'un sommet
+     * Ajout d'un sommet
      *
-     * @param s
-     * @return
+     * @param s Le nom du mommet à ajouter
      */
-    public void add(String s) {
+    void add(String s) {
         listeDeSommets.add(s);
     }
 
-    /**
+    /** Accesseur indexé de sommet dans la sequence
      * @param s le sommet
      * @return l'indice de s
      */
@@ -84,14 +83,14 @@ public class Sequence2destructrice {
     /**
      * @return La taille de la liste
      */
-    public int getNbSommets() {
+    int getNbSommets() {
         return listeDeSommets.size();
     }
 
     /**
      * @return la liste de sommets
      */
-    public List<String> getListeDeSommets() {
+    List<String> getListeDeSommets() {
         return listeDeSommets;
     }
 

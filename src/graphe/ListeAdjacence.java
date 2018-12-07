@@ -25,9 +25,9 @@ class ListeAdjacence {
     private int nbAretes;
 
     /**
-     *
+     * Constructeur de liste d'adjacence vide
      */
-    public ListeAdjacence() {
+    ListeAdjacence() {
         this.listeAdjacence = new TreeMap<>();
         nbAretes = 0;
         nbSommets = 0;
@@ -62,7 +62,7 @@ class ListeAdjacence {
      *
      * @param sommet le nom du sommet à ajouter
      */
-    public void addSommet(String sommet) {
+    void addSommet(String sommet) {
         if (!(this.listeAdjacence.containsKey(sommet))) {
             listeAdjacence.put(sommet, new ArrayList<>());
             nbSommets++;
@@ -70,6 +70,7 @@ class ListeAdjacence {
     }
 
     /**
+     * Testeur d'existence d'arête
      * @param x le nom du sommet x
      * @param y le nom du sommet y
      * @return true si le graphe contient l'arete xy et yx false sinon
@@ -94,7 +95,7 @@ class ListeAdjacence {
     /**
      * Affiche la liste
      */
-    public void print() {
+    void print() {
         System.out.println("Liste d'adjacence");
         listeAdjacence.forEach((sommet, liste) -> System.out.println("[" + sommet + "] - " + liste.toString() + " (" + liste.size() + ")"));
         System.out.println("n = " + this.nbSommets);
@@ -117,7 +118,7 @@ class ListeAdjacence {
      *
      * @return Un clone de la liste
      */
-    public ListeAdjacence copy() {
+    ListeAdjacence copy() {
         ListeAdjacence l = new ListeAdjacence();
         this.listeAdjacence.forEach(l::add);
         return l;
@@ -128,7 +129,7 @@ class ListeAdjacence {
      *
      * @param sommet le nom du sommet à supprimer
      */
-    public void deleteSommet(String sommet) {
+    void deleteSommet(String sommet) {
 
         this.listeAdjacence.forEach((edge, liste) -> liste.remove(sommet));
         this.listeAdjacence.remove(sommet);
@@ -156,7 +157,7 @@ class ListeAdjacence {
      * @param sommet     Le sommet pere
      * @return le nombre de sommet rouges restant dans les voisins de sommet - les sommets présents dans chemin
      */
-    public int getNbRougeRestantsDansListe(CouleurSommet couleurMap, List<String> chemin, String sommet) {
+    int getNbRougeRestantsDansListe(CouleurSommet couleurMap, List<String> chemin, String sommet) {
         int r = 0;
         for (String voisin : this.voisinsDe(sommet)) {
             if (!(chemin.contains(voisin)))
@@ -172,7 +173,7 @@ class ListeAdjacence {
      * @param sommet     Le sommet pere
      * @return Le nombre de sommet rouges restant dans les voisins de sommet
      */
-    public int getNbRougeRestantsDansListe(CouleurSommet couleurMap, String sommet) {
+    int getNbRougeRestantsDansListe(CouleurSommet couleurMap, String sommet) {
         int r = 0;
         for (String s : this.voisinsDe(sommet)) {
             r += ((couleurMap.sommetIsRouge(s)) ? 1 : 0);
@@ -188,7 +189,7 @@ class ListeAdjacence {
      * @param chemin     La liste des sommets parcourus
      * @return Une map (sommet, nombre de voisins rouges de ce sommet )
      */
-    public Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap, List<String> chemin) {
+    Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap, List<String> chemin) {
         TreeMap<String, Integer> min = new TreeMap<>();
         this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(couleurMap, chemin, s)));
         return min;
@@ -201,7 +202,7 @@ class ListeAdjacence {
      * @param couleurMap La coloration des Sommet
      * @return Une map (sommet, nombre de voisins rouges)
      */
-    public Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap) {
+    Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap) {
         TreeMap<String, Integer> min = new TreeMap<>();
         this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(couleurMap, s)));
         return min;
@@ -212,7 +213,7 @@ class ListeAdjacence {
      *
      * @return La liste d'adjacence
      */
-    public Map<String, List<String>> getListeAdjacence() {
+    Map<String, List<String>> getListeAdjacence() {
         return listeAdjacence;
     }
 
@@ -237,9 +238,9 @@ class ListeAdjacence {
     /**
      * Accesseur du nombre de sommets du graphe
      *
-     * @return
+     * @return le nombre de sommets du graphe
      */
-    public int getNbSommets() {
+    int getNbSommets() {
 
         return nbSommets;
     }
@@ -247,9 +248,9 @@ class ListeAdjacence {
     /**
      * Accesseur du nombre d'aretes du graphe
      *
-     * @return
+     * @return le nombre d'aretes du graphe
      */
-    public int getNbAretes() {
+    int getNbAretes() {
         computeNbAretes();
         return nbAretes;
     }

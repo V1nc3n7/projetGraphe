@@ -24,8 +24,7 @@ class Main {
         experiences = 0;
         probants = 0;
         while (experiences != NSUFFISEMENTGRAND) {
-            Graphe graphe = new Graphe(nSommets, probablite);
-            graphe.colorateGraphe(rougirSommets);
+            Graphe graphe = new Graphe(nSommets, probablite, rougirSommets);
             experiences++;
             if (graphe.isSquencePossible()) {
                 probants++;
@@ -49,8 +48,7 @@ class Main {
         expriences = probants = 0;
         while (expriences != nb) {
             expriences++;
-            Graphe graphe = new Graphe(nSommets, probablite);
-            graphe.colorateGraphe(rougirSommets);
+            Graphe graphe = new Graphe(nSommets, probablite, rougirSommets);
             if (graphe.isSquencePossible()) {
                 probants++;
             }
