@@ -8,8 +8,12 @@ import java.text.DecimalFormat;
  */
 
 class Main {
-    private static final int NSUFFISEMENTGRAND = 1000;
-    private static final double TARGET = 0.5;
+    private static final int NSUFFISEMENTGRAND = 1000;//Nombre d'expérience suffisament grand
+    private static final double TARGET = 0.5;//Probabilité visée que le graphe n'admette pas de séquence n-destructrice
+    //Valeurs par defaut
+    private static final int NSOMMETS=50; //Nombre de sommets dans le graphe
+    private static final double ROUGIRSOMMETS=0.5;//Probabilité qu'un sommet soit rouge
+    private static final double PROBABILITE=0.1; //Probabilité que chaque arrete possible appartienne au graphe
 
     /**
      * Retourne la probabilité qu'un graphe admette une séquence 2-destructrice
@@ -86,38 +90,46 @@ class Main {
             res_milieu = repeatRandom(nSommets, probablite, milieu, NSUFFISEMENTGRAND);
             System.out.print(iteration + " ");
         }
+        System.out.println(" ");
         String res = format.format(milieu);
         res = res.replace(",", ".");
         return Double.valueOf(res);
     }
 
     public static void main(String... args) {
-        //Valeurs par défault
-        //TestA
-        double rougirSommets = 0.5;
-        //TestA et TestB
-        int nSommets = 100;
-        double probablite = 0.7;
+        double rougirSommets;
+        int nSommets;
+        double probablite;
 
-        /*On lance testA et testB avec les valeurs de base*/
+        //Test A et B avec les paramètres par défaut
         if (args.length == 0 || (!args[0].equals("testb") && !args[0].equals("testa"))) {
-            System.out.println("testB(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ")=" + testB(nSommets, probablite) * 100 + "%");
-        } else {
-            if (args[0].equals("testa") && args.length == 4) {
-                nSommets = Integer.valueOf(args[1]);
-                probablite = Double.valueOf(args[2]);
-                rougirSommets = Double.valueOf(args[3]);
-                System.out.println("testA(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ",probaRougirSommets:" + rougirSommets + ")=" + testA(nSommets, probablite, rougirSommets) + "%");
-            } else {
-                System.out.println("Paramètres invalides");
+            System.out.println("testA(nbsommets:" + NSOMMETS + ",probabilitéArretes:" + PROBABILITE + ",probaRougirSommets:" + ROUGIRSOMMETS + ")=" + testA(NSOMMETS, PROBABILITE, ROUGIRSOMMETS) + "%");
+            System.out.println("testB(nbsommets:" + NSOMMETS + ",probabilitéArretes:" + PROBABILITE + ")=" + testB(NSOMMETS, PROBABILITE) * 100 + "%");
+        }else{
+            switch(args[0]){
+                //Test A avec paramètres de l'utilisateur
+                case "testa":
+                    if (args.length == 4) {
+                        nSommets = Integer.valueOf(args[1]);
+                        probablite = Double.valueOf(args[2]);
+                        rougirSommets = Double.valueOf(args[3]);
+                        System.out.println("testA(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ",probaRougirSommets:" + rougirSommets + ")=" + testA(nSommets, probablite, rougirSommets) + "%");
+                    }  else {
+                        System.out.println("Paramètres invalides");
+                    }
+                    break;
+                //Test B avec paramètres de l'utilisateur
+                case "testb":
+                    if (args.length == 3) {
+                        nSommets = Integer.valueOf(args[1]);
+                        probablite = Double.valueOf(args[2]);
+                        System.out.println("testB(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ")=" + testB(nSommets, probablite) * 100 + "%");
+                    } else {
+                        System.out.println("Paramètres invalides");
+                    }
+                    break;
             }
-            if (args[0].equals("testb") && args.length == 3) {
-                nSommets = Integer.valueOf(args[1]);
-                probablite = Double.valueOf(args[2]);
-                System.out.println("testB(nbsommets:" + nSommets + ",probabilitéArretes:" + probablite + ")=" + testB(nSommets, probablite) * 100 + "%");
-            } else {
-                System.out.println("Paramètres invalides");
-            }
+
         }
     }
 }
