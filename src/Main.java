@@ -66,7 +66,7 @@ class Main {
      * @param probablite proba que les arretes apartiennent au graphe
      */
     private static Double testB(int nSommets, double probablite) {
-        System.out.print("Itérations:1 ");
+        System.out.print("Itérations : 1 ");
         DecimalFormat format = new DecimalFormat("#.####");
         int iteration = 1;
         double borne_bas = 0;

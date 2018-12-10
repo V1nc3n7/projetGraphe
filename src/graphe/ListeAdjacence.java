@@ -25,12 +25,18 @@ class ListeAdjacence {
     private int nbAretes;
 
     /**
+     * Couleur des sommets
+     */
+    private CouleurSommet couleurSommet;
+
+    /**
      * Constructeur de liste d'adjacence vide
      */
     ListeAdjacence() {
         this.listeAdjacence = new TreeMap<>();
         nbAretes = 0;
         nbSommets = 0;
+        this.couleurSommet = null;
     }
 
     /**
@@ -67,6 +73,10 @@ class ListeAdjacence {
             listeAdjacence.put(sommet, new ArrayList<>());
             nbSommets++;
         }
+    }
+
+    public void setCouleurSommet(CouleurSommet couleurSommet) {
+        this.couleurSommet = couleurSommet;
     }
 
     /**
@@ -152,16 +162,15 @@ class ListeAdjacence {
     /**
      * Calcul du nombre de voisins rouges encore non parcouru (dans la liste) du sommet pere
      *
-     * @param couleurMap La coloration des Sommet
      * @param chemin     la liste des sommets parcourus
      * @param sommet     Le sommet pere
      * @return le nombre de sommet rouges restant dans les voisins de sommet - les sommets présents dans chemin
      */
-    int getNbRougeRestantsDansListe(CouleurSommet couleurMap, List<String> chemin, String sommet) {
+    int getNbRougeRestantsDansListe(List<String> chemin, String sommet) {
         int r = 0;
         for (String voisin : this.voisinsDe(sommet)) {
             if (!(chemin.contains(voisin)))
-                r += ((couleurMap.sommetIsRouge(voisin)) ? 1 : 0);
+                r += ((this.couleurSommet.sommetIsRouge(voisin)) ? 1 : 0);
         }
         return r;
     }
@@ -169,14 +178,13 @@ class ListeAdjacence {
     /**
      * Calcul du nombre de voisins rouges encore non parcouru du sommet pere
      *
-     * @param couleurMap La coloration des Sommet
      * @param sommet     Le sommet pere
      * @return Le nombre de sommet rouges restant dans les voisins de sommet
      */
-    int getNbRougeRestantsDansListe(CouleurSommet couleurMap, String sommet) {
+    int getNbRougeRestantsDansListe(String sommet) {
         int r = 0;
         for (String s : this.voisinsDe(sommet)) {
-            r += ((couleurMap.sommetIsRouge(s)) ? 1 : 0);
+            r += ((this.couleurSommet.sommetIsRouge(s)) ? 1 : 0);
         }
         return r;
     }
@@ -185,13 +193,13 @@ class ListeAdjacence {
     /**
      * Calcul et genère une map de sommets rouges voisins
      *
-     * @param couleurMap La coloration des Sommet
      * @param chemin     La liste des sommets parcourus
      * @return Une map (sommet, nombre de voisins rouges de ce sommet )
      */
-    Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap, List<String> chemin) {
+    Map<String, Integer> getMinMapSommetsRouges(List<String> chemin) {
         TreeMap<String, Integer> min = new TreeMap<>();
-        this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(couleurMap, chemin, s)));
+
+        this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(chemin, s)));
         return min;
     }
 
@@ -199,12 +207,11 @@ class ListeAdjacence {
     /**
      * Calcul et genère une map de sommets rouges
      *
-     * @param couleurMap La coloration des Sommet
      * @return Une map (sommet, nombre de voisins rouges)
      */
-    Map<String, Integer> getMinMapSommetsRouges(CouleurSommet couleurMap) {
+    Map<String, Integer> getMinMapSommetsRouges() {
         TreeMap<String, Integer> min = new TreeMap<>();
-        this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(couleurMap, s)));
+        this.listeAdjacence.forEach((s, l) -> min.put(s, this.getNbRougeRestantsDansListe(s)));
         return min;
     }
 
