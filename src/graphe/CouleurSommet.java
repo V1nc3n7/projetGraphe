@@ -3,7 +3,9 @@ package graphe;
 import java.util.Map;
 import java.util.TreeMap;
 
-
+/**
+ * La couleur de chaque sommet du Graphe
+ */
 class CouleurSommet {
     /**
      * La coloration

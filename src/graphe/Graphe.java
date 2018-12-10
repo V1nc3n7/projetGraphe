@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
+ * Represente le Graphe , et contient tout ce qui sera utiisé à l'exterieur
  * @autor Vincent
  * @date 25/10/2018
  */

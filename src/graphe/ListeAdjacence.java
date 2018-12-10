@@ -1,11 +1,13 @@
 package graphe;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 /**
+ * Represente la structure des sommets et de ses voisins
  * @autor Vincent
  * @date 31/10/2018
  */
