@@ -41,16 +41,14 @@ class Main {
 
     /**
      * Retourne la probabilité qu'un graphe admette une séquence 2-destructrice pour nb expériences
-     *
-     * @param nSommets      nombre de sommmets du graphe
+     *  @param nSommets      nombre de sommmets du graphe
      * @param probablite    proba que les arretes apartiennent au graphe
      * @param rougirSommets proba qu'un sommet soit coloré en rouge
-     * @param nb            nombre d'expériences réalisées
      */
-    private static double repeatRandom(int nSommets, double probablite, double rougirSommets, int nb) {
+    private static double repeatRandom(int nSommets, double probablite, double rougirSommets) {
         double expriences, probants;
         expriences = probants = 0;
-        while (expriences != nb) {
+        while (expriences != Main.NSUFFISEMENTGRAND) {
             expriences++;
             Graphe graphe = new Graphe(nSommets, probablite, rougirSommets);
             if (graphe.isSquencePossible()) {
@@ -74,8 +72,8 @@ class Main {
         double borne_bas = 0;
         double borne_haut = 1;
         double milieu = borne_haut / 2;
-        double res_borne_bas = repeatRandom(nSommets, probablite, borne_bas, NSUFFISEMENTGRAND);
-        double res_milieu = repeatRandom(nSommets, probablite, milieu, NSUFFISEMENTGRAND);
+        double res_borne_bas = repeatRandom(nSommets, probablite, borne_bas);
+        double res_milieu = repeatRandom(nSommets, probablite, milieu);
 
         while (!format.format(borne_bas).equals(format.format(borne_haut))) {
             if ((TARGET >= res_borne_bas && TARGET < res_milieu) || (TARGET <= res_borne_bas && TARGET > res_milieu)) {
@@ -86,8 +84,8 @@ class Main {
                 milieu = milieu + (borne_haut - milieu) / 2;
             }
             iteration++;
-            res_borne_bas = repeatRandom(nSommets, probablite, borne_bas, NSUFFISEMENTGRAND);
-            res_milieu = repeatRandom(nSommets, probablite, milieu, NSUFFISEMENTGRAND);
+            res_borne_bas = repeatRandom(nSommets, probablite, borne_bas);
+            res_milieu = repeatRandom(nSommets, probablite, milieu);
             System.out.print(iteration + " ");
         }
         System.out.println(" ");
