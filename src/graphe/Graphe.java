@@ -197,9 +197,9 @@ public class Graphe {
 
         while (seq.getNbSommets() != this.getNbSommets()) {
 
-            String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(seq.getListeDeSommets()));
-            seq.add(smax);
-            listeAdjacenceTemp.deleteSommet(smax);
+            String min = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges());
+            seq.add(min);
+            listeAdjacenceTemp.deleteSommet(min);
         }
         return seq;
     }
@@ -249,7 +249,7 @@ public class Graphe {
             while (path.size() != nsommets) {
 
 
-                String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges());
+                String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(path));
                 if (listeAdjacenceTemp.getNbRougeRestantsDansListe(smax) > 3)
                     return false;
                 path.add(smax);

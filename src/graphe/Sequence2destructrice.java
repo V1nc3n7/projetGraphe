@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * La sequence de 2 destruction
+ * La sequence-2-destruction
  * @autor Vincent
  * @date 31/10/2018
  */
