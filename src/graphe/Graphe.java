@@ -193,6 +193,7 @@ public class Graphe {
         if (!(isSquencePossible())) return null;
         ListeAdjacence listeAdjacenceTemp = this.listeAdjacence.copy();
         listeAdjacenceTemp.setCouleurSommet(mapColors);
+
         Sequence2destructrice seq = new Sequence2destructrice();
 
         while (seq.getNbSommets() != this.getNbSommets()) {
@@ -247,14 +248,11 @@ public class Graphe {
             LinkedList<String> path = new LinkedList<>();
             int nsommets = this.listeAdjacence.getNbSommets();
             while (path.size() != nsommets) {
-
-
                 String smax = getMinSommet(listeAdjacenceTemp.getMinMapSommetsRouges(path));
                 if (listeAdjacenceTemp.getNbRougeRestantsDansListe(smax) > 3)
                     return false;
                 path.add(smax);
                 listeAdjacenceTemp.deleteSommet(smax);
-
             }
         }
         return true;

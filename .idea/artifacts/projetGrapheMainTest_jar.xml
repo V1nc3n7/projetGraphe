@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="projetGrapheMainTest:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/projetGrapheMainTest_jar</output-path>
+    <root id="archive" name="projetGraphe.jar">
+      <element id="module-output" name="projetGraphe" />
+    </root>
+  </artifact>
+</component>
